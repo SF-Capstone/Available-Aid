@@ -22,6 +22,8 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
+credentials.json
+serviceCredentials.json
 
 /node_modules
 /public/build
