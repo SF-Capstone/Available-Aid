@@ -1,0 +1,13 @@
+h1 {
+    color: #576F72;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #F0EBE3;
+}
+.nav-link {
+    color: #F0EBE3;
+}
+.nav-link:hover {
+    color: #afa89e;
+}

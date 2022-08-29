@@ -18,12 +18,12 @@ class SheetsController extends Controller
         $service = new Google_Service_Sheets($client);
 
 
-        $range = 'Filters!A1:B100';
+        $range = 'Filters!E2:Z100';
         $result = $service->spreadsheets_values->get($spreadsheetId, $range);
         
         try{
             $numRows = $result->getValues() != null ? count($result->getValues()) : 0;
-            printf("%d rows retrieved.", $numRows);
+            
             return response()->json($result);
         }
 
