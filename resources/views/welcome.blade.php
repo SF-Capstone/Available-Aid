@@ -10,97 +10,71 @@
             <p>
                 beds!
             </p>
-            <button onclick="loadFilters()">Get Started</button>
-            <div id="filters">
-            </div>
         </div>
+
+        {{-- LOOP THROUGH ALL FITLERS --}}
+        <form>
+        @csrf
+            @foreach($result->values as $filter)
+                {{-- RADIO BUTTON --}}
+                @if($filter[1] == "Radio Button")
+                    <div>
+                        <p>{{$filter[0]}}</p>
+                        @foreach(array_slice($filter, 2) as $option)
+                            <a>
+                                <input onclick="" type="radio" class="btn-check typeRadio" name="{{$filter[0]}}Filter" id="{{$option}}" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="{{$option}}">{{$option}}</label>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- CHECK BOX --}}
+                @if($filter[1] == "Check Box")
+                    <div class="form-check form-switch form-check-reverse">
+                        <input type="checkbox" class="form-check-input" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off">
+                        <label class="form-check-label" for="{{$filter[0]}}">{{$filter[0]}}</label>
+                    </div>
+                @endif
+
+                {{-- SLIDER --}}
+                @if($filter[1] == "Slider")
+                    <div class="form-group">
+                        <label for="{{$filter[0]}}">{{$filter[0]}}</label>
+                        <input type="range" class="form-control-range" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" min="{{$filter[2]}}" max="{{$filter[3]}}" step="1" autocomplete="off">
+                    </div>
+                @endif
+
+                {{-- MUTLI SELECT --}}
+                @if($filter[1] == "Multiple Select")
+                    <div class="form-group">
+                        <p>{{$filter[0]}}</p>
+                        @foreach(array_slice($filter, 2) as $option)
+                            <div class="form-check form-switch form-check-reverse">
+                                <input type="checkbox" class="form-check-input" name="{{$option}}Filter" id="{{$option}}" autocomplete="off">
+                                <label class="form-check-label" for="{{$option}}">{{$option}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- DROPDOWN --}}
+                @if($filter[1] == "Drop Down")
+                    <div class="form-group">
+                        <label for="{{$filter[0]}}">{{$filter[0]}}</label>
+                        <select class="form-control" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off">
+                            @foreach(array_slice($filter, 2) as $option)
+                                <option value="{{$option}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+
+            @endforeach
+        </form>
+        {{-- END LOOP --}}
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function() {
-        loadFilters();
-    });
-
-    function loadFilters() {
-        axios.get("{{ route('getFilterInfo') }}")
-            .then(function (response) {
-                //console.log(response.data);
-                makeFilters(response.data);
-                //let filters = document.getElementById("filters");
-                //filters.innerHTML = response.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    function makeFilters(data) {
-        for(let i = 0; i < data.values.length; i++) {
-            let type = data.values[i][1];
-
-            switch(type){
-                case "Radio Button":
-                    makeRadio(data.values[i]);
-                    break;
-                case "Check Box":
-                    makeCheck(data.values[i]);
-                    break;
-                case "Drop Down":
-                    makeDropDown(data.values[i]);
-                    break;
-                case "Slider":
-                    makeSlider(data.values[i]);
-                    break;
-                case "Multiple Select":
-                    makeMultipleSelect(data.values[i]);
-                    break;
-            }
-        }
-    }
-
-    function makeRadio(data) {
-        let filter = $("<div></div>");
-        let filterName = $("<p></p>").text(data[0]);
-        filter.append(filterName);
-        
-        let li = $("<li></li>");
-        filter.append(li);
-        
-        let a = $("<a></a>");
-        a.addClass("text-light");
-        filter.append(a);
-        
-        
-        let input = $("<input>");
-        input.type = "radio";
-        input.addClass("btn-check typeRadio");
-        // needs all of the input options
-        for(let i = 2; i < data.length; i++) {
-            let label = $("<label></label>").text(data[i]);
-            input.append(label);
-        }
-        a.append(input);
-        
-        let doc = $("#filters");
-        doc.append(filter);
-    }
-    
-    function makeCheck(data) {
-            
-    }
-    function makeDropDown(data) {
-        
-    }
-    function makeSlider(data) {
-        
-    }
-    function makeMultipleSelect(data) {
-        
-    }
-    
-</script>
 
 
 <div class="pt-2 container">

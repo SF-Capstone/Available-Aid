@@ -19,15 +19,11 @@ class SheetsController extends Controller
 
 
         $range = 'Filters!E2:Z100';
-        $result = $service->spreadsheets_values->get($spreadsheetId, $range);
-        
-        try{
-            $numRows = $result->getValues() != null ? count($result->getValues()) : 0;
-            
-            return response()->json($result);
-        }
 
-        catch(Exception $e) {
+        try {
+            $result = $service->spreadsheets_values->get($spreadsheetId, $range);
+            return view('welcome', compact('result'));
+        } catch(Exception $e) {
             // TODO(developer) - handle error appropriately
             echo 'Message: ' .$e->getMessage();
         }

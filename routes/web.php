@@ -15,14 +15,16 @@ use App\Http\Controllers\SheetsController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
 Route::controller(WelcomeController::class)->group(function(){
     Route::get('/', 'show')->name('welcome');
 });
+*/
 
 Route::controller(SheetsController::class)->group(function(){
-    Route::get('/getFilterInfo', 'getFilterInfo')->name('getFilterInfo');
+    //Route::get('/getFilterInfo', 'getFilterInfo')->name('getFilterInfo');
+    Route::get('/', 'getFilterInfo')->name('getFilterInfo');
 });
