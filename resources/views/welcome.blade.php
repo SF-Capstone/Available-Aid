@@ -25,5 +25,25 @@
 <button class="btn">Contact us <i class='fas fa-phone'></i></button>
 --}}
 
+<<<<<<< HEAD
 
 @endsection
+=======
+<script>
+    $(document).ready(() => {
+        getLocationData();
+    });
+    //using the geolocation api to get the user's location
+    function getLocationData() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position.coords.latitude, position.coords.longitude);
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+</script>
+
+@endsection
+>>>>>>> 593845a (Rebasing off of develop)
