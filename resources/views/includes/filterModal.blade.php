@@ -1,7 +1,7 @@
 
 
 {{-- LOOP THROUGH ALL FITLERS --}}
-<form action="" method="" enctype="">
+<form action="{{ route('results') }}" method="GET" enctype="multipart/form-data">
 @csrf
     <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labeledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
