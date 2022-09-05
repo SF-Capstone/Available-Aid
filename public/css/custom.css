@@ -11,3 +11,10 @@ h1 {
 .nav-link:hover {
     color: #afa89e;
 }
+
+#map {
+    margin: auto;
+    margin-top:5em;
+    height: 75vh;
+    width: 75vw;
+}
