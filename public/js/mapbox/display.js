@@ -181,3 +181,13 @@ const map = new mapboxgl.Map({
     center: [-122.669771, 45.518492],                               // starting position [lng, lat]
     zoom: 15                                                        // starting zoom
 });
+
+const nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-right');
+
+// add directions
+let directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken
+});
+
+map.addControl(directions, 'top-left');
