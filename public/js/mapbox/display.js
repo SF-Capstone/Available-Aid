@@ -5,26 +5,3 @@ const map = new mapboxgl.Map({
     center: [-122.669771, 45.518492],                               // starting position [lng, lat]
     zoom: 15                                                        // starting zoom
 });
-
-const nav = new mapboxgl.NavigationControl();
-map.addControl(nav, 'top-right');
-
-// add directions
-let directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken,
-    interactive: false,
-    //Removes origin/destination, but keeps instructions
-//     controls: {
-//         inputs: false,
-//         instructions: true
-//   }
-});
-map.addControl(directions, 'top-left');
-
-
-let geolocate = new mapboxgl.GeolocateControl({
-        positionOptions: {
-            enableHighAccuracy: true
-        },
-    })
-map.addControl(geolocate);
