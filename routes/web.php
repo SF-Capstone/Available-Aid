@@ -26,12 +26,6 @@ Route::controller(WelcomeController::class)->group(function(){
 
 Route::controller(SheetsController::class)->group(function(){
     Route::get('/', 'getFilterInfo')->name('getFilterInfo');
-<<<<<<< HEAD
+    Route::get('/mapView', 'getShelterLocation')->name('getShelterLocation');
     Route::get('/results', 'getShelterInfo')->name('results');
-=======
-});
-
-Route::get('/mapView', function () {
-    return view('mapView');
->>>>>>> c464342 (Setting up mapbox)
 });
