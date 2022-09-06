@@ -8,6 +8,8 @@ use Google\Service\Drive;
 use Google\Service\Sheets;
 use Illuminate\Http\Request;
 
+use Exception;
+
 class SheetsController extends Controller
 {
     public function getFilterInfo() {
@@ -30,6 +32,26 @@ class SheetsController extends Controller
         }
     }
 
+    public function getShelterLocation()
+    {
+        $spreadsheetId = Env('SPREADSHEET_ID');
+        $client = new Client();
+        $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
+        $client->addScope(Drive::DRIVE);
+        $service = new Google_Service_Sheets($client);
+
+
+        $range = 'Info!A2:C';
+
+        try {
+            $locations = $service->spreadsheets_values->get($spreadsheetId, $range);
+            return view('mapView', compact('locations'));
+        } catch (Exception $e) {
+            // TODO(developer) - handle error appropriately
+            echo 'Message: ' . $e->getMessage();
+        }
+    }
+    
     public function getShelterInfo(Request $request) {
         $activeFilters = array_slice($request->all(), 1);
         
