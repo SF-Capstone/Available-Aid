@@ -27,8 +27,9 @@ Route::controller(WelcomeController::class)->group(function(){
 Route::controller(SheetsController::class)->group(function(){
     //Route::get('/getFilterInfo', 'getFilterInfo')->name('getFilterInfo');
     Route::get('/', 'getFilterInfo')->name('getFilterInfo');
+    Route::get('/mapView', 'getShelterLocation')->name('getShelterLocation');
 });
 
-Route::get('/mapView', function () {
-    return view('mapView');
-});
+// Route::get('/mapView', function () {
+//     return view('mapView');
+// });
