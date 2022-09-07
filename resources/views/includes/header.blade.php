@@ -52,7 +52,7 @@
     <body style="background-color: rgb(228, 220, 207)">
         <nav class="navbar sticky-top navbar-expand-sm navbar-custom" style="background-color: rgb(87, 111, 114);">
             <div class="container">
-                <a href="" class="navbar-brand mb=0 h1">
+                <a href="{{ route('getFilterInfo') }}" class="navbar-brand mb=0 h1">
                     <img
                         class="align-middle"
                         src=""
@@ -73,7 +73,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('getFilterInfo') }}">
                                 Home
                             </a>
                         </li>
