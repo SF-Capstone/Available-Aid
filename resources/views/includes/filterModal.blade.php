@@ -19,9 +19,9 @@
                                 @foreach(array_slice($filter, 3) as $option)
                                     <a>
                                         @if($filter[2] == "Yes")
-                                            <input onclick="" type="radio" class="btn-check typeRadio" name="{{$filter[0]}}Filter" id="{{$option}}" autocomplete="off" required>
+                                            <input onclick="" type="radio" class="btn-check typeRadio" name="{{$filter[0]}}" id="{{$option}}" value="{{$option}}" autocomplete="off" required>
                                         @else
-                                            <input onclick="" type="radio" class="btn-check typeRadio" name="{{$filter[0]}}Filter" id="{{$option}}" autocomplete="off">
+                                            <input onclick="" type="radio" class="btn-check typeRadio" name="{{$filter[0]}}" id="{{$option}}" value="{{$option}}" autocomplete="off">
                                         @endif
                                         <label class="btn btn-outline-primary me-2" for="{{$option}}">{{$option}}</label>
                                     </a>
@@ -34,9 +34,9 @@
                             <div class="d-flex flex-row">
                                 <div class="form-check form-switch form-check-reverse mb-3">
                                     @if($filter[2] == "Yes")
-                                        <input type="checkbox" class="form-check-input" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off" required>
+                                        <input type="checkbox" class="form-check-input" name="{{$filter[0]}}" id="{{$filter[0]}}" autocomplete="off" required>
                                     @else
-                                        <input type="checkbox" class="form-check-input" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off">
+                                        <input type="checkbox" class="form-check-input" name="{{$filter[0]}}" id="{{$filter[0]}}" autocomplete="off">
                                     @endif
                                     <label class="form-check-label" for="{{$filter[0]}}">{{$filter[0]}}</label>
                                 </div>
@@ -47,7 +47,7 @@
                         @if($filter[1] == "Slider")
                             <div class="form-group mb-3">
                                 <label for="{{$filter[0]}}">{{$filter[0]}}</label>
-                                <input type="range" class="form-control-range align-middle ms-4" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" min="{{$filter[3]}}" max="{{$filter[4]}}" step="1" autocomplete="off">
+                                <input type="range" class="form-control-range align-middle ms-4" name="{{$filter[0]}}" id="{{$filter[0]}}" min="{{$filter[3]}}" max="{{$filter[4]}}" step="1" autocomplete="off">
                             </div>
                         @endif
 
@@ -57,7 +57,7 @@
                                 <p>{{$filter[0]}}</p>
                                 @foreach(array_slice($filter, 3) as $option)
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="{{$option}}Filter" id="{{$option}}" autocomplete="off">
+                                        <input type="checkbox" class="form-check-input" name="{{$option}}" id="{{$option}}" autocomplete="off">
                                         <label class="form-check-label" for="{{$option}}">{{$option}}</label>
                                     </div>
                                 @endforeach
@@ -70,13 +70,13 @@
                                 <label for="{{$filter[0]}}">{{$filter[0]}}</label>
                                 <div class="d-flex col-6">
                                     @if($filter[2] == "Yes")
-                                        <select class="form-select mt-1" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off" required>
+                                        <select class="form-select mt-1" name="{{$filter[0]}}" id="{{$filter[0]}}" autocomplete="off" required>
                                             @foreach(array_slice($filter, 3) as $option)
                                                 <option value="{{$option}}">{{$option}}</option>
                                             @endforeach
                                         </select>
                                     @else
-                                        <select class="form-select mt-1" name="{{$filter[0]}}Filter" id="{{$filter[0]}}" autocomplete="off">
+                                        <select class="form-select mt-1" name="{{$filter[0]}}" id="{{$filter[0]}}" autocomplete="off">
                                             @foreach(array_slice($filter, 3) as $option)
                                                 <option value="{{$option}}">{{$option}}</option>
                                             @endforeach
