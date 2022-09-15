@@ -16,10 +16,6 @@
 </div>        
 <button type="button" class="btn btn-primary container d-flex justify-content-center col-2" data-bs-toggle="modal" data-bs-target="#ModalCenter">Search</button>
 
-<<<<<<< HEAD
-
-@endsection
-=======
 <script>
     $(document).ready(() => {
         getLocationData();
@@ -28,7 +24,7 @@
     function getLocationData() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position.coords.latitude, position.coords.longitude);
+                console.log(position.coords.longitude, position.coords.latitude);
             });
         } else {
             console.log("Geolocation is not supported by this browser.");
@@ -37,4 +33,3 @@
 </script>
 
 @endsection
->>>>>>> 593845a (Rebasing off of develop)
