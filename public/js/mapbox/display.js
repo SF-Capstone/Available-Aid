@@ -11,7 +11,7 @@ map.addControl(nav, 'top-right');
 
 // add directions
 let directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken
+    accessToken: mapboxgl.accessToken,
+    interactive: false
 });
-
 map.addControl(directions, 'top-left');
