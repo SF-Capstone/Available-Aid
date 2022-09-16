@@ -3,12 +3,9 @@
 
 @section('body')
 @include('includes.filterModal')
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 <style>
 .gap{
   width:200px;
@@ -28,7 +25,7 @@ h2{
   letter-spacing: -0.333333px;
   color: #F0EBE3;
 }
-.btn {
+.btn1 {
   position: absolute;
   border: none;
   background-color: inherit;
@@ -47,11 +44,21 @@ h2{
 .search:hover {
   color: #7D9D9C;
 }
- /* Make the image fully responsive */
- .carousel-inner img {
-    width: 100%;
-    height: 100%;
-  }
+
+.card{
+  position: relative;
+  border: none;
+  left:10%;
+  padding: 14px 28px;
+  width: 402px;
+  height: 424px;
+  background: #F0EBE3;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: inline-block;
+}
+
+
 
 </style>
 
@@ -63,57 +70,30 @@ h2{
             <h2>
                 Find a place to stay!
             </h2>
-            <!--<div class='gap'></div>-->
-            <button type="button" class="btn search" data-bs-toggle="modal" data-bs-target="#ModalCenter"><div class="BlackSpaceDivClass"> Search</div></button>
+            <button type="button" class="btn1 search" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
+
         </div>
       </div>
 </div>
-
-<div id="demo" class="carousel slide" data-ride="carousel">
-<div class='gap'></div>
-<div class="BlackSpaceDivClass"> </div>
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-  
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="images/home1.jpg" alt="home1" width="1100" height="338">
-      <div class="carousel-caption">
-        <h3>Blanchet House</h3>
-        <p>Welcome to Blanchet House!</p>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="images/home2.jpg" alt="home2" width="1100" height="338">
-      <div class="carousel-caption">
-        <h3>Clark Center</h3>
-        <p>Welcome to Clark Center!</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="images/home3.jpg" alt="home3" width="1100" height="338">
-      <div class="carousel-caption">
-        <h3>Portland Rescur Mission</h3>
-        <p>Welcome to Portland Rescur Mission!</p>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
+<div>
+@include('includes.carousel')
+<div class='card'>
+  <h5>Map Card</h5>
+    <p>Find the shelter by location?</p>
+    <i class="material-icons" style="font-size:200px">map</i>
+    <div class='gap'></div>
+  <button type="button" class="btn1 search" > View Map</button>
 </div>
-    
+<div class='gap'></div>
+<div class='card'>
+  <h5>Information</h5>
+    <p>Need help?</p>
+    <i class="material-icons" style="font-size:200px">local_phone</i>
+    <div class='gap'></div>
+    <button type="button" class="btn1 search" > About Us</button>
+</div>
+
+
 
 
 
