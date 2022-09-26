@@ -12,6 +12,11 @@ map.addControl(nav, 'top-right');
 // add directions
 let directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
-    interactive: false
+    interactive: false,
+    //Removes origin/destination, but keeps instructions
+    controls: {
+        inputs: false,
+        instructions: true
+  }
 });
 map.addControl(directions, 'top-left');
