@@ -17,7 +17,7 @@ h2{
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 33px;
   display: flex;
   align-items: center;
@@ -79,8 +79,9 @@ h2{
 
 <div class="top-image">
   <div class="top-text">
-    <h1 style="font-size:50px">welcome to avalible aid</h1>
-        <h3>find a place to stay</h3>
+    <h1 style="font-size:50px">Available Aid</h1>
+        <h2>Avaiable Aid serves anyone who try to find safe shelter in Portland. </h2>
+        <h2>We offer different types of beds.</h2>
         <button type="button" class="btn1 search" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
   </div>
 </div>
