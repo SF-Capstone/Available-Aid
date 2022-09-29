@@ -58,40 +58,38 @@ h2{
   display: inline-block;
 }
 
+.top-image {
+  background: url("images/top-main.jpg") no-repeat center; 
+  background-size: cover;
+  height: 800px;
+  position: relative;
+}
+
+.top-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
 
 
 </style>
 
-<div class="container d-flex bootstrap-grid mb-2 mt-4 text-center mx-auto">
-    <div class="row row1 mx-auto">
-        <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
-         
-            <h1>Welcome to Avalible Aid</h1>
-            <h2>
-                Find a place to stay!
-            </h2>
-            <button type="button" class="btn1 search" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
+<div class="top-image">
+  <div class="top-text">
+    <h1 style="font-size:50px">welcome to avalible aid</h1>
+        <h3>find a place to stay</h3>
+        <button type="button" class="btn1 search" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
+  </div>
+</div>
 
-        </div>
-      </div>
-</div>
-<div>
+
+
+
 @include('includes.carousel')
-<div class='card'>
-  <h5>Map Card</h5>
-    <p>Find the shelter by location?</p>
-    <i class="material-icons" style="font-size:200px">map</i>
-    <div class='gap'></div>
-  <button type="button" class="btn1 search" > View Map</button>
-</div>
-<div class='gap'></div>
-<div class='card'>
-  <h5>Information</h5>
-    <p>Need help?</p>
-    <i class="material-icons" style="font-size:200px">local_phone</i>
-    <div class='gap'></div>
-    <button type="button" class="btn1 search" > About Us</button>
-</div>
+
 
 
 
