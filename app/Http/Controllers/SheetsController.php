@@ -19,7 +19,7 @@ class SheetsController extends Controller
         $service = new Google_Service_Sheets($client);
 
 
-        $range = 'Filters!A2:Z100';
+        $range = 'Filters!A2:Z';
 
         try {
             $result = $service->spreadsheets_values->get($spreadsheetId, $range);
@@ -39,7 +39,7 @@ class SheetsController extends Controller
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
 
-        $infoRange = 'Info!A:Z';
+        $infoRange = 'Overview!A:Z';
 
         try{
             $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $infoRange);
@@ -84,30 +84,8 @@ class SheetsController extends Controller
 
                 $result = array();
 
-                $lastRowHeaderRange = $shelter["Shelter Name"] . '!A1:Z1';
-                $lastRowHeader = $service->spreadsheets_values->get($spreadsheetId, $lastRowHeaderRange)->values[0];
-
-                //loop through all of the headers and get the index of the row that contains the word bed case insensitive
-                $bedIndex = 0;
-                foreach ($lastRowHeader as $header) {
-                    if (stripos($header, 'bed') !== false) {
-                        $bedIndex = array_search($header, $lastRowHeader);
-                    }
-                }
-
-                //loop through all of the headers and get the index of the row that contains the word timestamp case insensitive
-                $timestampIndex = 0;
-                foreach ($lastRowHeader as $header) {
-                    if (stripos($header, 'timestamp') !== false) {
-                        $timestampIndex = array_search($header, $lastRowHeader);
-                    }
-                }
-                
-                $lastRowRange = $shelter["Shelter Name"] . '!A' . $shelter["Most Recent entry row"] . ':C' . $shelter["Most Recent entry row"];
-                $mostRecent = $service->spreadsheets_values->get($spreadsheetId, $lastRowRange)->values[0];
-
-                $result['beds'] = $mostRecent[$bedIndex];
-                $result['timestamp'] = date('g:ia m/d/Y', strtotime($mostRecent[$timestampIndex]));
+                $result['beds'] = $shelter['Beds'];
+                $result['timestamp'] = date('g:ia m/d/Y', strtotime($shelter['Timestamp']));
                 $result['shelter'] = $shelter["Shelter Name"];
                 $result['address'] = $shelter["Location"];
                 $result['phone'] = $shelter["Contact Info"];
@@ -121,6 +99,5 @@ class SheetsController extends Controller
             // TODO(developer) - handle error appropriately
             echo 'Message: ' .$e->getMessage();
         }
-        
     }
 }
