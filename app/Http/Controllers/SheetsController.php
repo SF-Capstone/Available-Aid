@@ -57,7 +57,7 @@ class SheetsController extends Controller
                 $mappedResults[] = $temp;
             }
         
-            foreach ($mappedResults as $shelter) {
+            foreach ($mappedResults as $index => $shelter) {
 
                 foreach($activeFilters as $key => $value) {
                     //strip out the underscores in the key
@@ -89,12 +89,42 @@ class SheetsController extends Controller
                 $result['shelter'] = $shelter["Shelter Name"];
                 $result['address'] = $shelter["Location"];
                 $result['phone'] = $shelter["Contact Info"];
+                $result['row'] = $index + 1;
 
 
                 $lastFormInput[] = $result;
             }
 
             return view('results', compact('shelterResultInfo' , 'lastFormInput'));
+        } catch(Exception $e) {
+            // TODO(developer) - handle error appropriately
+            echo 'Message: ' .$e->getMessage();
+        }
+    }
+
+    public function getMoreInfo(Request $request) {
+        $shelterRow = $request->input('shelterRow');
+
+        $spreadsheetId = Env('SPREADSHEET_ID');
+        $client = new Client();
+        $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
+        $client->addScope(Drive::DRIVE);
+        $service = new Google_Service_Sheets($client);
+
+        $range = "Overview!A:Z";
+
+        try {
+            $shelter = $service->spreadsheets_values->get($spreadsheetId, $range)->values;
+            $result = array();
+
+            $headers = $shelter[0];
+            $info = $shelter[$shelterRow];
+
+            foreach($headers as $key => $value) {
+                $result[$value] = $info[$key];
+            }
+            
+            return view('information', compact('result'));
         } catch(Exception $e) {
             // TODO(developer) - handle error appropriately
             echo 'Message: ' .$e->getMessage();

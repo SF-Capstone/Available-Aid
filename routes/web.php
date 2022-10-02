@@ -27,4 +27,5 @@ Route::controller(WelcomeController::class)->group(function(){
 Route::controller(SheetsController::class)->group(function(){
     Route::get('/', 'getFilterInfo')->name('getFilterInfo');
     Route::get('/results', 'getShelterInfo')->name('results');
+    Route::get('/results/{shelterName}', 'getMoreInfo')->name('info');
 });
