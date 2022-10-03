@@ -20,6 +20,7 @@ class WelcomeController extends Controller
     }
 
     public function getImage($imageName) {
+        $imageName = strtr($imageName, array('(' => '', ')' => '')); // strip out parentheses
         $allImages = Storage::files('public/images/');
         $image = preg_grep('/' . $imageName . '.*/', $allImages);
         
