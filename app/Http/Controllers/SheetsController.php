@@ -83,11 +83,11 @@ class SheetsController extends Controller
                 }
 
                 $result = array();
-
-                $result['beds'] = $shelter['Beds'];
+                $format = 'Beds Available: %d';
+                $result['beds'] = sprintf($format, $shelter['Beds']);
                 $result['timestamp'] = date('g:ia m/d/Y', strtotime($shelter['Timestamp']));
                 $result['shelter'] = $shelter["Shelter Name"];
-                $result['address'] = $shelter["Location"];
+                #$result['address'] = $shelter["Location"];
                 $result['phone'] = $shelter["Contact Info"];
                 $result['row'] = $index + 1;
 
