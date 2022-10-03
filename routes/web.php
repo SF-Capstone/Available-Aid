@@ -24,6 +24,11 @@ Route::controller(WelcomeController::class)->group(function(){
 });
 */
 
+Route::controller(WelcomeController::class)->group(function(){
+    Route::get('/images/{imageName?}', 'getImage')->name('getImage');
+});
+
+
 Route::controller(SheetsController::class)->group(function(){
     Route::get('/', 'getFilterInfo')->name('getFilterInfo');
     Route::get('/results', 'getShelterInfo')->name('results');
