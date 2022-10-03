@@ -11,3 +11,13 @@ h1 {
 .nav-link:hover {
     color: #afa89e;
 }
+
+
+@media only screen and (min-width: 768px) {
+    .informationImages {
+        object-fit: cover; 
+        height:500px; 
+        object-position: 15% 100%;
+    }
+} 
+
