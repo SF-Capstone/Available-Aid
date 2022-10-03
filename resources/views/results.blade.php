@@ -5,11 +5,13 @@
         <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
             <h1>Welcome to Avalible Aid</h1>
 
+            
+
             @foreach ($lastFormInput as $current)
                 <div class="card mb-3 mx-auto" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="..." alt="...">
+                        <img src="{{ route('getImage', ['imageName' => $current['shelter']]) }}"class="card-img-top" alt="Shelter Image">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
