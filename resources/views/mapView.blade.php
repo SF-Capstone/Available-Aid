@@ -4,6 +4,14 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
 <style>
+    body,
+    html {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .mapboxgl-popup {
         max-width: 200px;
     }
@@ -13,26 +21,22 @@
         font-family: 'Open Sans', sans-serif;
     }
 
-    .directionButton {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        z-index: 3;
+    .mapboxgl-ctrl button:not(:disabled):hover {
+        background-color: #fff;
     }
 
-    /* Screen size "medium" and below as defined by Mapbox documentation */
+    /* Mapbox screen size "medium" and below */
     @media only screen and (max-width: 799px) {
 
-        .directions-control.directions-control-instructions,
-        .directions-control.directions-control-directions,
-        .mapbox-directions-instructions {
+        /* Full screen map */
+        #map {
             height: 100%;
         }
 
-        .directions-control.directions-control-directions {
-            max-height: 100%;
-            margin: 0;
+        .mapboxgl-ctrl-top-left {
+            top: auto;
+            left: auto;
+            bottom: 0;
         }
 
         .mapboxgl-ctrl-top-left .mapboxgl-ctrl {
@@ -41,13 +45,49 @@
 
         .mapboxgl-ctrl-directions {
             max-width: none;
-            min-width: 0%
+            min-width: 0%;
+            width: auto;
+            margin: 0;
+            bottom: 0;
+        }
+
+        .directions-control.directions-control-directions {
+            margin: 0;
+            bottom: 0;
+            top: auto;
+            right: auto;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .directions-control.directions-control-directions.collapsed {
+            max-height: 38px !important;
+        }
+
+        .mapbox-directions-instructions,
+        .mapbox-directions-instructions-wrapper {
+            height: calc(100% - 38px);
+        }
+
+        .dirToggle {
+            position: absolute;
+            top: 0.5rem;
+            left: 50%;
+            transform: translate(-50%, 0);
+            z-index: 3;
         }
     }
 
-    /* Screen size "large" and up as defined by Mapbox documentation*/
+    /* Mapbox screen size "large" and up */
     @media only screen and (min-width: 800px) {
-        .directionButton {
+
+        /* Center map on page */
+        #map {
+            margin: auto;
+            height: 75vh;
+            width: 75vw;
+        }
+
+        .dirToggle {
             display: none;
         }
     }
@@ -59,107 +99,27 @@
 <script src="{{asset('js/mapbox/display.js')}}"></script>
 <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 <script>
-    $(document).ready(() => {
-        addShelters();
-        setOrigin();
-    });
     const mapboxClient = mapboxSdk({
         accessToken: mapboxgl.accessToken
     });
 
-    // 
-    function addShelters() {
-        const locations = JSON.parse('{!! json_encode($locations->values) !!}');
-        locations.forEach(addMarkers);
+    $(document).ready(() => {
+        getShelter();
+        setStart();
+        observeDirections();
+    });
+
+    // Gets shelter data from controller
+    function getShelter() {
+        const shelterInfo = JSON.parse('{!! json_encode($result) !!}');
+        const name = shelterInfo['Shelter Name'];
+        // const contact = shelterInfo['Contact Info'];
+        const address = shelterInfo['Location'];
+        addMarker(name, address);
     }
 
-    function setOrigin() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                directions.setOrigin([position.coords.longitude, position.coords.latitude]);
-            });
-            // User has to manually input their location
-        } else {
-            console.log("Geolocation is not supported by this browser.");
-        }
-    }
-
-    function responsiveDirections() {
-        let map = document.getElementById('map');
-        let mapboxControls = {
-            directionControl: document.querySelector(".mapboxgl-ctrl-directions"),
-            navigationControl: document.querySelector(".mapboxgl-ctrl.mapboxgl-ctrl-group"),
-            mapboxLogoText: document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl"),
-            popups: document.querySelector(".mapboxgl-popup")
-        };
-
-        // Create a button that toggles directions on click
-        addDirectionButton(map, mapboxControls);
-
-        // Size directions to fit map initially and on resize
-        mapboxControls.directionControl.style.display = 'none'
-        toggleDirections(mapboxControls);
-        resizeDirections(map, mapboxControls);
-        $(window).trigger('resize');
-    }
-
-    function addDirectionButton(map, mapboxControls) {
-        let directionToggle = document.createElement('button');
-        directionToggle.id = 'dirButton';
-        directionToggle.className = 'directionButton';
-        directionToggle.textContent = 'Toggle directions';
-
-        const directionToggleExists = document.getElementById("dirButton");
-        if (!directionToggleExists) {
-            map.appendChild(directionToggle);
-        }
-        
-        directionToggle.addEventListener('click', function() {
-            toggleDirections(mapboxControls);
-        });
-    }
-
-    function toggleDirections(mapboxControls) {
-        mapboxControls.popups = document.querySelector(".mapboxgl-popup");
-        if (mapboxControls.directionControl.style.display === "none") {
-            mapboxControls.directionControl.style.display = "block";
-            mapboxControls.navigationControl.style.display = 'none';
-            mapboxControls.mapboxLogoText.style.display = 'none';
-            if (mapboxControls.popups) mapboxControls.popups.style.display = 'none';
-        } else {
-            mapboxControls.directionControl.style.display = 'none';
-            mapboxControls.navigationControl.style.display = 'block';
-            mapboxControls.mapboxLogoText.style.display = 'block';
-            if (mapboxControls.popups) mapboxControls.popups.style.display = 'block';
-        }
-    }
-
-    // Every time window is resized, resize directions
-    function resizeDirections(map, mapboxControls) {
-        $(window).on("resize", function() {
-            if ($(window).width() <= 799) {
-                mapboxControls.directionControl.style.width = map.offsetWidth;
-                mapboxControls.directionControl.style.height = map.offsetHeight;
-                mapboxControls.directionControl.style.display = mapboxControls.directionControl.style.display === "none" ? "block" : "none"
-                toggleDirections(mapboxControls);
-            } else {
-                mapboxControls.directionControl.style.display = 'block';
-                mapboxControls.navigationControl.style.display = 'block';
-                mapboxControls.mapboxLogoText.style.display = 'block';
-                if (mapboxControls.popups) mapboxControls.popups.style.display = 'block';
-            }
-        });
-    }
-
-    function setDestination(long, lat) {
-        directions.setDestination([long, lat]);
-        responsiveDirections();
-    }
-
-    function addMarkers(info, index) {
-        const name = info[0];
-        const phone = info[1];
-        const address = info[2];
+    // Places a marker on the map where the shelter is located
+    function addMarker(name, address) {
         mapboxClient.geocoding
             .forwardGeocode({
                 query: address,
@@ -186,14 +146,111 @@
                     new mapboxgl.Popup({
                         offset: 25
                     })
-                    // Link to info page here
                     .setHTML(
                         `<h3>${name}</h3>
-                        <button onclick="setDestination(${long}, ${lat})">Directions</button>
-                        <p>Link to info</p>`
+                        <button onclick="setDest(${long}, ${lat})">Directions</button>`
                     )
                 ).addTo(map);
             });
+    }
+
+    // Sets the user's origin to their geolocated position
+    function setStart() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                directions.setOrigin([position.coords.longitude, position.coords.latitude]);
+            });
+            // User will need to manually input their location
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    // Sets the destination when called from button click
+    function setDest(long, lat) {
+        directions.setDestination([long, lat]);
+    }
+
+    // Only runs "map directions" related functions once it has been added to DOM
+    function observeDirections() {
+        const targetNode = document.querySelector(".directions-control-instructions");
+
+        // Call observer if target node had children added/removed
+        const config = {
+            childList: true,
+        };
+
+        const callback = (mutationList, observer) => {
+            observer.disconnect();
+            responsiveDirections();
+        };
+
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+    }
+
+    // Wrapper function for responsive directions functions
+    function responsiveDirections() {
+        let directionWindow = document.querySelector(".directions-control-directions");
+        directionWindow.classList.add('collapsed');
+
+        let mapboxControls = {
+            // navigationCtrl: document.querySelector(".mapboxgl-ctrl-group"),
+            mapboxLogoCtrl: document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl"),
+            attributeCtrl: document.querySelector(".mapboxgl-ctrl.mapboxgl-ctrl-attrib"),
+            popupCtrl: document.querySelector(".mapboxgl-popup")
+        };
+
+        addDirectionToggle(directionWindow, mapboxControls);
+        toggleDirections(directionWindow, mapboxControls);
+        resizeDirections(directionWindow, mapboxControls);
+        $(window).trigger('resize');
+    }
+
+    // Adds a button that collapses directions when clicked
+    function addDirectionToggle(directionWindow, mapboxControls) {
+        let directionToggle = document.createElement('button');
+        directionToggle.id = 'directionToggle';
+        directionToggle.className = 'dirToggle';
+        directionToggle.textContent = 'Toggle directions';
+
+        const directionToggleExists = document.getElementById("directionToggle");
+        if (!directionToggleExists) {
+            directionWindow.appendChild(directionToggle);
+        }
+
+        directionToggle.addEventListener('click', function() {
+            toggleDirections(directionWindow, mapboxControls);
+        })
+    }
+
+    // Toggles direction window and other map controls on/off
+    function toggleDirections(directionWindow, mapboxControls) {
+        directionWindow.classList.toggle('collapsed');
+        mapboxControls.mapboxLogoCtrl.style.visibility = directionWindow.classList.contains('collapsed') ? "visible" : "hidden";
+        mapboxControls.attributeCtrl.style.visibility = directionWindow.classList.contains('collapsed') ? "visible" : "hidden";
+        if (mapboxControls.popupCtrl) mapboxControls.popupCtrl.style.display = "none";
+    }
+
+    // Every time window is resized, resizes directions
+    function resizeDirections(directionWindow, mapboxControls) {
+        let map = document.getElementById('map');
+        // Works on both window resize and navbar collapse
+        const resizeObserver = new ResizeObserver((entries) => {
+            if ($(window).width() <= 799) {
+                directionWindow.style.maxWidth = directionWindow.style.width = map.offsetWidth;
+                directionWindow.style.maxHeight = directionWindow.style.height = (map.offsetHeight / 2);
+                directionWindow.classList.toggle('collapsed');
+                toggleDirections(directionWindow, mapboxControls);
+            } else {
+                directionWindow.style.maxWidth = directionWindow.style.width = "300px";
+                directionWindow.style.maxHeight = "none";
+                directionWindow.style.height = ((window.innerHeight / 2) + 38) + "px";
+                mapboxControls.mapboxLogoCtrl.style.visibility = 'visible';
+                mapboxControls.attributeCtrl.style.visibility = 'visible';
+            }
+        });
+        resizeObserver.observe(map);
     }
 </script>
 @endsection
