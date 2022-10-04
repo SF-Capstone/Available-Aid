@@ -32,20 +32,28 @@ class SheetsController extends Controller
         }
     }
 
-    public function getShelterLocation()
+    public function getShelterLocation(Request $request)
     {
+        $shelterRow = $request->input('shelterRow');
         $spreadsheetId = Env('SPREADSHEET_ID');
         $client = new Client();
         $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
 
-
-        $range = 'Info!A2:C';
+        $range = 'Overview!A:C';
 
         try {
-            $locations = $service->spreadsheets_values->get($spreadsheetId, $range);
-            return view('mapView', compact('locations'));
+            $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $range);
+            $headers = $shelterResultInfo[0];
+            $info = $shelterResultInfo[$shelterRow];
+
+            foreach ($headers as $key => $value) {
+                $result[$value] = $info[$key];
+            }
+            $result['Row Number'] = $shelterRow;
+
+            return view('mapView', compact('result'));
         } catch (Exception $e) {
             // TODO(developer) - handle error appropriately
             echo 'Message: ' . $e->getMessage();
@@ -145,6 +153,7 @@ class SheetsController extends Controller
             foreach($headers as $key => $value) {
                 $result[$value] = $info[$key];
             }
+            $result['Row Number'] = $shelterRow;
             
             return view('information', compact('result'));
         } catch(Exception $e) {
