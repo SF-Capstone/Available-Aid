@@ -13,12 +13,27 @@
   height:100px;
   display:inline-block;}
 
+h1{
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 20px;
+  text-shadow: -0.5px 0.5px 0 #7D9D9C, 0.5px 0.5px 0 #7D9D9C, 0.5px -0.5px 0 #7D9D9C,-0.5px -0.5px 0 #7D9D9C;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.333333px;
+  color: #576F72;
+}
+
 h2{
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 22px;
-  line-height: 33px;
+  font-size: 10px;
+  line-height: 20px;
+  text-shadow: -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000, 0.5px -0.5px 0 #000,-0.5px -0.5px 0 #000;
   display: flex;
   align-items: center;
   text-align: center;
@@ -61,7 +76,7 @@ h2{
 .top-image {
   background: url("images/top-main.jpg") no-repeat center; 
   background-size: cover;
-  height: 800px;
+  height: 300px;
   position: relative;
 }
 
@@ -79,7 +94,7 @@ h2{
 
 <div class="top-image">
   <div class="top-text">
-    <h1 style="font-size:50px">Available Aid</h1>
+    <h1 style="font-size:30px,">Available Aid</h1>
         <h2>Avaiable Aid serves anyone who try to find safe shelter in Portland. </h2>
         <h2>We offer different types of beds.</h2>
         <button type="button" class="btn1 search" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
