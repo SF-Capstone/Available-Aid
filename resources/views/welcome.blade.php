@@ -3,14 +3,15 @@
 
 @section('body')
 @include('includes.filterModal')
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 
 <style>
 .gap{
-  width:200px;
+  width:50px;
   background:none;
-  height:100px;
+  height:50px;
   display:inline-block;}
 
 h1{
@@ -102,11 +103,10 @@ h2{
 </div>
 
 
-
-
 @include('includes.carousel')
 
-
+<h1 style="font-size:20px,"> Need Help?</h1>
+<button style='font-size:24px'>Contact us <i class='fas fa-phone'></i></button>
 
 
 

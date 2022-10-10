@@ -6,7 +6,7 @@
 .gap{
   width:200px;
   background:none;
-  height:100px;
+  height:50px;
   display:inline-block;
 }
   .carousel-inner img {
@@ -16,6 +16,7 @@
 </style>
 
 <div class='gap'></div>
+<h1 style="font-size:30px,">Available Shelter</h1>
 <div id="demo" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ul class="carousel-indicators">
