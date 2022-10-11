@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         
 
-        <title>Avalible Aid</title>
+        <title>Available Aid</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('image/logo4.png') }}">
 
         <!-- Fonts -->
