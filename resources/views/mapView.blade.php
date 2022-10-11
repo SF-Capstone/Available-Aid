@@ -11,13 +11,11 @@
         flex-direction: column;
         justify-content: center;
     }
-
     .loaderContainer {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
     .loader {
         border: 16px solid #f3f3f3;
         border-top: 16px solid #576f72;
@@ -26,65 +24,51 @@
         height: 120px;
         animation: spin 2s linear infinite;
     }
-
     @keyframes spin {
         0% {
             transform: rotate(0deg);
         }
-
         100% {
             transform: rotate(360deg);
         }
     }
-
     .mapbox-directions-destination {
         display: none;
     }
-
     .directions-icon-reverse {
         display: none;
     }
-
     .mapbox-directions-instructions,
     .mapbox-directions-instructions-wrapper {
         height: calc(100% - 38px);
     }
-
     .mapboxgl-popup {
         max-width: 200px;
     }
-
     .mapboxgl-popup-content {
         text-align: center;
         font-family: 'Open Sans', sans-serif;
     }
-
     .mapboxgl-user-location,
     .mapboxgl-user-location-accuracy-circle {
         display: none;
     }
-
     .mapboxgl-ctrl button:not(:disabled):hover {
         background-color: #fff;
     }
-
     /* Mapbox screen size "medium" and below */
     @media only screen and (max-width: 799px) {
-
         /* Full screen map */
         #map {
             height: 100%;
         }
-
         .directions-control.directions-control-inputs {
             min-width: 300px;
         }
-
         .mapboxgl-ctrl-bottom-left {
             bottom: 0;
             position: absolute;
         }
-
         .directions-control.directions-control-instructions {
             max-width: none;
             min-width: 0%;
@@ -93,7 +77,6 @@
             bottom: 0;
             pointer-events: auto;
         }
-
         .directions-control.directions-control-directions {
             margin: 0;
             -webkit-transition: max-height 0.3s ease-out;
@@ -103,11 +86,9 @@
             transition: max-height 0.3s ease-out;
             position: relative;
         }
-
         .directions-control.directions-control-directions.collapsed {
             max-height: 38px !important;
         }
-
         .dirToggle {
             position: absolute;
             top: 0.5rem;
@@ -115,48 +96,39 @@
             transform: translate(-50%, 0);
             z-index: 3;
         }
-
         .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl.shiftup {
             margin: 0 0 48px 10px;
         }
-
         .mapboxgl-ctrl.mapboxgl-ctrl-attrib.shiftup {
             margin: 0 10px 48px 0;
         }
     }
-
     /* Mapbox screen size "large" and up */
     @media only screen and (min-width: 800px) {
-
         /* Center map on page */
         #map {
             margin: auto;
             height: 75vh;
             width: 75vw;
         }
-
         .mapboxgl-ctrl-top-left {
             z-index: 99;
         }
-
         .mapboxgl-ctrl-bottom-left {
             position: absolute;
             top: 0;
             height: 100%;
         }
-
         .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
             bottom: 0;
             position: absolute;
         }
-
         .directions-control.directions-control-instructions {
             top: 0;
             margin-top: 97px;
             margin-left: 10px;
             pointer-events: auto;
         }
-
         .dirToggle {
             display: none;
         }
@@ -172,35 +144,29 @@
     const mapboxClient = mapboxSdk({
         accessToken: mapboxgl.accessToken
     });
-
     $(document).ready(() => {
         addLoader();
         setLocation();
         setShelter();
         observeDirections();
     });
-
     // Add a loading spinner
     function addLoader() {
         let container = document.createElement('div')
         container.id = 'loadContainer';
         container.className = 'loaderContainer';
-
         let loader = document.createElement('img');
         loader.id = 'loading';
         loader.className = 'loader'
         container.appendChild(loader)
-
         let map = document.getElementById('map');
         map.appendChild(container);
-
         container.style.maxHeight = container.style.height = map.offsetHeight;
         container.style.maxWidth = container.style.width = map.offsetWidth;
         map.style.visibility = 'hidden';
         container.style.visibility = 'visible';
         isLoaded(container);
     }
-
     // Display map if data is loaded
     function isLoaded(container) {
         let mapElement = document.getElementById('map');
@@ -223,7 +189,6 @@
                 });
         });
     }
-
     // Convert coordinates to an address/place
     function getLocation(event) {
         return new Promise((resolve, reject) => {
@@ -247,7 +212,6 @@
                 });
         });
     }
-
     // Sets the destination to the desired shelter
     function setShelter() {
         getShelter()
@@ -260,7 +224,6 @@
                 console.error(error);
             });
     }
-
     // Gets shelter data from controller
     function getShelter() {
         const shelterInfo = JSON.parse('{!! json_encode($result) !!}');
@@ -269,7 +232,6 @@
         const address = shelterInfo['Location'];
         return addMarker(name, address);
     }
-
     // Places a marker on the map where the shelter is located
     function addMarker(name, address) {
         return new Promise((resolve, reject) => {
@@ -305,25 +267,19 @@
                 });
         });
     }
-
     // Only runs "map directions" related functions once it has been added to DOM
     function observeDirections() {
         const targetNode = document.querySelector(".directions-control-instructions");
-
         // Call observer if target node had children added/removed
         const config = {
             childList: true,
         };
-
         const callback = (mutationList, observer) => {
             responsiveDirections();
-
         };
-
         const observer = new MutationObserver(callback);
         observer.observe(targetNode, config);
     }
-
     // Wrapper for responsive directions functions
     function responsiveDirections() {
         let directionWindow = document.querySelector(".directions-control-directions");
@@ -333,14 +289,12 @@
             attributeCtrl: document.querySelector(".mapboxgl-ctrl.mapboxgl-ctrl-attrib"),
             popupCtrl: document.querySelector(".mapboxgl-popup")
         };
-
         // If map directions are currently being displayed
         if (directionWindow) {
             moveDirectionWindow();
             mapboxControls.mapboxLogoCtrl.classList.add('shiftup');
             mapboxControls.attributeCtrl.classList.add('shiftup');
             directionWindow.classList.add('collapsed');
-
             addDirectionToggle(directionWindow, mapboxControls);
             toggleDirections(directionWindow, mapboxControls);
             resizeDirections(directionWindow, mapboxControls);
@@ -350,7 +304,6 @@
             mapboxControls.attributeCtrl.classList.remove('shiftup');
         }
     }
-
     // Separate direction inputs and direction instructions 
     // from each other for easier CSS formatting
     function moveDirectionWindow() {
@@ -359,24 +312,20 @@
         let botLeftCtrl = document.querySelector(".mapboxgl-ctrl-bottom-left");
         botLeftCtrl.appendChild(instructions);
     }
-
     // Adds a button that collapses directions when clicked
     function addDirectionToggle(directionWindow, mapboxControls) {
         let directionToggle = document.createElement('button');
         directionToggle.id = 'directionToggle';
         directionToggle.className = 'dirToggle';
         directionToggle.textContent = 'Toggle directions';
-
         const directionToggleExists = document.getElementById("directionToggle");
         if (!directionToggleExists) {
             directionWindow.appendChild(directionToggle);
         }
-
         directionToggle.addEventListener('click', function() {
             toggleDirections(directionWindow, mapboxControls);
         })
     }
-
     // Toggles direction window and other map controls on/off
     function toggleDirections(directionWindow, mapboxControls) {
         directionWindow.classList.toggle('collapsed');
@@ -392,7 +341,6 @@
             mapboxControls.attributeCtrl.style.visibility = "hidden";
         }
     }
-
     // Every time window is resized, resizes directions
     function resizeDirections(directionWindow, mapboxControls) {
         let map = document.getElementById('map');
