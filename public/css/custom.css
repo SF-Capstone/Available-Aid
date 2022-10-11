@@ -16,8 +16,9 @@ h1 {
 @media only screen and (min-width: 768px) {
     .informationImages {
         object-fit: cover; 
-        height:500px; 
+        height:250x; 
         object-position: 15% 100%;
+
     }
-} 
+}
 

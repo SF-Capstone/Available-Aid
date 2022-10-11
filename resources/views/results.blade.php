@@ -19,7 +19,7 @@
                                 <p class="card-text">{{$current['beds']}}</p>
                                 <p class="card-text"><small class="text-muted">{{$current['phone']}}</small></p>
                                 <p class="card-text"><small class="text-muted">Last Updated: {{$current['timestamp']}}</small></p>
-                                <a class="btn btn-primary" href="{{ route('info', ['shelterRow' => $current['row'], 'shelterName' => Str::slug($current['shelter'], '-') ]) }}">Get More information</a>
+                                <a class="btn btn-primary" href="{{ route('info', ['shelterRow' => $current['row'], 'shelterName' => Str::slug($current['shelter'], '-') ]) }}">Get More Information</a>
                             </div>
                         </div>
                     </div>
