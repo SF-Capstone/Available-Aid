@@ -22,9 +22,9 @@
             <h5 class="card-text">Avalible Beds: {{ $result['Beds'] }}</h5>
             <p class="card-text"><small class="text-muted">Last Updated: {{ $result['Timestamp'] }}</small></p>
             @foreach(array_slice($result, 6) as $key => $info)
-            @if($info != 'No')
-            <p class="card-text">{{ $key }}: {{ $info }}</p>
-            @endif
+                @if($info != 'No' && $key != "Row Number")
+                <p class="card-text">{{ $key }}: {{ $info }}</p>
+                @endif
             @endforeach
             <a class="btn btn-primary" href="{{ route('mapView', ['shelterRow' => $result['Row Number'], 'shelterName' => Str::slug($result['Shelter Name'], '-') ]) }}">Get Directions</a>
         </div>
