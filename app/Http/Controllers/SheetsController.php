@@ -8,6 +8,8 @@ use Google\Service\Drive;
 use Google\Service\Sheets;
 use Illuminate\Http\Request;
 
+use Exception;
+
 class SheetsController extends Controller
 {
     public function getFilterInfo() {
@@ -19,7 +21,7 @@ class SheetsController extends Controller
         $service = new Google_Service_Sheets($client);
 
 
-        $range = 'Filters!A2:Z100';
+        $range = 'Filters!A2:Z';
 
         try {
             $result = $service->spreadsheets_values->get($spreadsheetId, $range);
@@ -30,6 +32,34 @@ class SheetsController extends Controller
         }
     }
 
+    public function getShelterLocation(Request $request)
+    {
+        $shelterRow = $request->input('shelterRow');
+        $spreadsheetId = Env('SPREADSHEET_ID');
+        $client = new Client();
+        $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
+        $client->addScope(Drive::DRIVE);
+        $service = new Google_Service_Sheets($client);
+
+        $range = 'Overview!A:C';
+
+        try {
+            $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $range);
+            $headers = $shelterResultInfo[0];
+            $info = $shelterResultInfo[$shelterRow];
+
+            foreach ($headers as $key => $value) {
+                $result[$value] = $info[$key];
+            }
+            $result['Row Number'] = $shelterRow;
+
+            return view('mapView', compact('result'));
+        } catch (Exception $e) {
+            // TODO(developer) - handle error appropriately
+            echo 'Message: ' . $e->getMessage();
+        }
+    }
+    
     public function getShelterInfo(Request $request) {
         $activeFilters = array_slice($request->all(), 1);
         
@@ -39,7 +69,7 @@ class SheetsController extends Controller
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
 
-        $infoRange = 'Info!A:Z';
+        $infoRange = 'Overview!A:Z';
 
         try{
             $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $infoRange);
@@ -57,7 +87,7 @@ class SheetsController extends Controller
                 $mappedResults[] = $temp;
             }
         
-            foreach ($mappedResults as $shelter) {
+            foreach ($mappedResults as $index => $shelter) {
 
                 foreach($activeFilters as $key => $value) {
                     //strip out the underscores in the key
@@ -84,33 +114,12 @@ class SheetsController extends Controller
 
                 $result = array();
 
-                $lastRowHeaderRange = $shelter["Shelter Name"] . '!A1:Z1';
-                $lastRowHeader = $service->spreadsheets_values->get($spreadsheetId, $lastRowHeaderRange)->values[0];
-
-                //loop through all of the headers and get the index of the row that contains the word bed case insensitive
-                $bedIndex = 0;
-                foreach ($lastRowHeader as $header) {
-                    if (stripos($header, 'bed') !== false) {
-                        $bedIndex = array_search($header, $lastRowHeader);
-                    }
-                }
-
-                //loop through all of the headers and get the index of the row that contains the word timestamp case insensitive
-                $timestampIndex = 0;
-                foreach ($lastRowHeader as $header) {
-                    if (stripos($header, 'timestamp') !== false) {
-                        $timestampIndex = array_search($header, $lastRowHeader);
-                    }
-                }
-                
-                $lastRowRange = $shelter["Shelter Name"] . '!A' . $shelter["Most Recent entry row"] . ':C' . $shelter["Most Recent entry row"];
-                $mostRecent = $service->spreadsheets_values->get($spreadsheetId, $lastRowRange)->values[0];
-
-                $result['beds'] = $mostRecent[$bedIndex];
-                $result['timestamp'] = date('g:ia m/d/Y', strtotime($mostRecent[$timestampIndex]));
+                $result['beds'] = $shelter['Beds'];
+                $result['timestamp'] = date('g:ia m/d/Y', strtotime($shelter['Timestamp']));
                 $result['shelter'] = $shelter["Shelter Name"];
                 $result['address'] = $shelter["Location"];
                 $result['phone'] = $shelter["Contact Info"];
+                $result['row'] = $index + 1;
 
 
                 $lastFormInput[] = $result;
@@ -121,6 +130,35 @@ class SheetsController extends Controller
             // TODO(developer) - handle error appropriately
             echo 'Message: ' .$e->getMessage();
         }
-        
+    }
+
+    public function getMoreInfo(Request $request) {
+        $shelterRow = $request->input('shelterRow');
+
+        $spreadsheetId = Env('SPREADSHEET_ID');
+        $client = new Client();
+        $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
+        $client->addScope(Drive::DRIVE);
+        $service = new Google_Service_Sheets($client);
+
+        $range = "Overview!A:Z";
+
+        try {
+            $shelter = $service->spreadsheets_values->get($spreadsheetId, $range)->values;
+            $result = array();
+
+            $headers = $shelter[0];
+            $info = $shelter[$shelterRow];
+
+            foreach($headers as $key => $value) {
+                $result[$value] = $info[$key];
+            }
+            $result['Row Number'] = $shelterRow;
+            
+            return view('information', compact('result'));
+        } catch(Exception $e) {
+            // TODO(developer) - handle error appropriately
+            echo 'Message: ' .$e->getMessage();
+        }
     }
 }
