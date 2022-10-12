@@ -8,12 +8,12 @@
             
 
             @foreach ($lastFormInput as $current)
-                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                <div class="card mb-3 mx-auto justify-content-center card-width">
                     <div class="row g-0">
-                        <div class="col-md-4">
-                        <img src="{{ route('getImage', ['imageName' => $current['shelter']]) }}"class="card-img-top" alt="Shelter Image">
+                        <div>
+                            <img src="{{ route('getImage', ['imageName' => $current['shelter']]) }}" class="card-img-top results" alt="Shelter Image">
                         </div>
-                        <div class="col-md-8">
+                        <div>
                             <div class="card-body">
                                 <h5 class="card-title">{{$current['shelter']}}</h5>
                                 <p class="card-text">{{$current['beds']}}</p>

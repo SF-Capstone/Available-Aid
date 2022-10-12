@@ -1,3 +1,10 @@
+/*
+Our colors:
+#F0EBE3 Tan
+#E4DCCF Dark Tan
+#7D9D9C Light Green
+#576F72 Dark Green
+*/
 h1 {
     color: #576F72;
 }
@@ -12,13 +19,146 @@ h1 {
     color: #afa89e;
 }
 
+.filterModal {
+    background-color: #E4DCCF;
+    color: #576F72;
+}
 
-@media only screen and (min-width: 768px) {
-    .informationImages {
+
+.btn-secondary {
+    background-color: #F0EBE3;
+    color: #576F72;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid transparent;
+    --bs-btn-color: #F0EBE3;
+    --bs-btn-bg: #576F72;
+    --bs-btn-border-color: #576F72;
+    --bs-btn-hover-color: #F0EBE3;
+    --bs-btn-hover-bg: #7D9D9C;
+    --bs-btn-hover-border-color: #7D9D9C;
+    --bs-btn-focus-shadow-rgb: disabled;
+    --bs-btn-active-color: #F0EBE3;
+    --bs-btn-active-bg: #576F72;
+}
+
+.btn-primary {
+    background-color: #7D9D9C;
+    color: #F0EBE3;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid transparent;
+    --bs-btn-color: #7D9D9C;
+    --bs-btn-bg: #F0EBE3;
+    --bs-btn-border-color: #7D9D9C;
+    --bs-btn-hover-color: #F0EBE3;
+    --bs-btn-hover-bg: #576F72;
+    --bs-btn-hover-border-color: #576F72;
+    --bs-btn-focus-shadow-rgb: disabled;
+    --bs-btn-active-color: #F0EBE3;
+    --bs-btn-active-bg: #576F72;
+}
+
+
+.form-check-input {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid transparent;
+    background-color: #F0EBE3;
+    border-color: #F0EBE3;
+}
+
+.form-check-input:checked {
+    background-color: #7D9D9C;
+    color: #F0EBE3;
+    border-color: #7D9D9C;
+}
+
+.form-switch .form-check-input:focus {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid transparent;
+    outline: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+}
+
+.form-switch .form-check-input:checked {
+    background-position: right center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.modal-header {
+    min-height: 16.42857143px;
+    padding: 15px;
+    border-bottom: 2px solid #576F72;
+}
+  
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 2px solid #576F72;
+}
+
+
+@media (max-width: 414px) {
+    .results {
         object-fit: cover; 
-        height:250x; 
+        height: 180px; 
         object-position: 15% 100%;
-
+    }
+    .card-width {
+        width: 100%;
+    }
+}
+@media (min-width: 415px) and (max-width: 768px) {
+    .results {
+        object-fit: cover; 
+        height: 200px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 75%;
+    }
+}
+@media (min-width: 769px) {
+    .results {
+        object-fit: cover; 
+        height: 250px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 50%;
     }
 }
 
+.card {
+    background-color: #F0EBE3;
+    color: #576F72;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+
+@media (max-width: 414px) {
+    .top-image {
+        background: url("../images/top-main.jpg") no-repeat center; 
+        background-size: cover;
+        background-position: bottom;
+        height: 250px;
+        position: relative;
+      }
+}
+@media (min-width: 415px) and (max-width: 768px) {
+    .top-image {
+        background: url("../images/top-main.jpg") no-repeat center; 
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        position: relative;
+      }
+}
+@media (min-width: 769px) {
+    .top-image {
+        background: url("../images/top-main.jpg") no-repeat center; 
+        background-size: cover;
+        background-position: center;
+        height: 320px;
+        position: relative;
+      }
+}
