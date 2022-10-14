@@ -3,8 +3,8 @@
 <div class="container d-flex bootstrap-grid mb-2 mt-4 text-center mx-auto">
     <div class="row row1 mx-auto">
         <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
-            <h1>Welcome to Available Aid</h1>
-
+            <h1>Shelter Results</h1>
+            <hr>
             
 
             @foreach ($lastFormInput as $current)
@@ -15,10 +15,10 @@
                         </div>
                         <div>
                             <div class="card-body">
-                                <h5 class="card-title">{{$current['shelter']}}</h5>
-                                <p class="card-text">{{$current['beds']}}</p>
-                                <p class="card-text"><small class="text-muted">{{$current['phone']}}</small></p>
-                                <p class="card-text"><small class="text-muted">Last Updated: {{$current['timestamp']}}</small></p>
+                                <p class="card-title fw-bold fs-3">{{$current['shelter']}}</p>
+                                <p class="card-text fw-bold">{{$current['beds']}} <br>
+                                <small class="text-muted fw-normal">Last Updated: {{$current['timestamp']}}</small></p>
+                                
                                 <a class="btn btn-primary" href="{{ route('info', ['shelterRow' => $current['row'], 'shelterName' => Str::slug($current['shelter'], '-') ]) }}">Get More Information</a>
                             </div>
                         </div>
