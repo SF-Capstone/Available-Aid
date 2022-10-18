@@ -3,19 +3,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
-.gap{
-  width:200px;
-  background:none;
-  height:50px;
-  display:inline-block;
-}
+
   .carousel-inner img {
     width: 100%;
     height: 100%;
   }
 </style>
 
-<div class='gap'></div>
 <h1 style="font-size:30px,">Available Shelter</h1>
 <div id="demo" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
