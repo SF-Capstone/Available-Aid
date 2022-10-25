@@ -189,18 +189,13 @@ map.addControl(nav, 'top-right');
 let directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
     interactive: false,
-    //Removes origin/destination, but keeps instructions
-//     controls: {
-//         inputs: false,
-//         instructions: true
-//   }
+    styles: style
 });
 map.addControl(directions, 'top-left');
-
 
 let geolocate = new mapboxgl.GeolocateControl({
         positionOptions: {
             enableHighAccuracy: true
         },
     })
-map.addControl(geolocate);
+map.addControl(geolocate, 'top-left');
