@@ -64,6 +64,8 @@ TBA
 
 Credits to Bootstrap, Laravel, PHP, CSS, and other authors.
 
+Credits to [Necolas](github.com/necolas/normalize.css) for normalize.css v8.0.1 (MIT License).
+
 Special Thanks to [Blanchet House](https://blanchethouse.org/).
 
 *Available Aid* © October 2022.
