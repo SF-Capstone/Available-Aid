@@ -1,5 +1,5 @@
 /*
-Our colors:
+Available Aid's color-palate:
 #F0EBE3 Tan
 #E4DCCF Dark Tan
 #7D9D9C Light Green
@@ -23,7 +23,6 @@ h1 {
     background-color: #E4DCCF;
     color: #576F72;
 }
-
 
 .btn-secondary {
     background-color: #F0EBE3;
@@ -56,7 +55,6 @@ h1 {
     --bs-btn-active-color: #F0EBE3;
     --bs-btn-active-bg: #576F72;
 }
-
 
 .form-check-input {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -95,7 +93,6 @@ h1 {
     border-top: 2px solid #576F72;
 }
 
-
 @media (max-width: 414px) {
     .results {
         object-fit: cover; 
@@ -132,8 +129,6 @@ h1 {
     color: #576F72;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
-
 
 @media (max-width: 414px) {
     .top-image {

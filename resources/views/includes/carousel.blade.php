@@ -19,7 +19,7 @@
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
   
-  <!-- The slideshow -->
+  <!-- Slideshow of Available Aid Providers & Shelter Organizations -->
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="images/home1.jpg" alt="home1" width="402" height="338">
@@ -39,8 +39,8 @@
     <div class="carousel-item">
       <img src="images/home3.jpg" alt="home3" width="402" height="338">
       <div class="carousel-caption">
-        <h3>Portland Rescur Mission</h3>
-        <p>Welcome to Portland Rescur Mission!</p>
+        <h3>Portland Rescue Mission</h3>
+        <p>Welcome to Portland Rescue Mission!</p>
       </div>
     </div>
   </div>

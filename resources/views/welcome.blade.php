@@ -1,6 +1,10 @@
+<!--
+    Available Aid, SF '22
+    welcome.blade.php - The Available Aid welcome page.
+    Uses Carousel & FontAwesome Kit (JavaScript)
+-->
+
 @extends('includes.header')
-
-
 @section('body')
 @include('includes.filterModal')
 <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -22,7 +26,7 @@
 {{--@include('includes.carousel')--}}
 {{--
 <h1 class="text-center"> Need Help?</h1>
-<button class="btn">Contact us <i class='fas fa-phone'></i></button>
+<button class="btn">Contact us at <i class='fas fa-phone'></i></button>
 --}}
 
 

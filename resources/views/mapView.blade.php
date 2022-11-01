@@ -1,3 +1,9 @@
+<!--
+    Available Aid, SF '22
+    mapView.blade.php - Contains implementation of the Mapbox.com API for displaying the Available Aid map & shelter locations.
+    See https://mapbox.com for more API details for further improvements & development.
+-->
+
 @extends('includes.header')
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
