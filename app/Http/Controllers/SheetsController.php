@@ -41,7 +41,7 @@ class SheetsController extends Controller
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
 
-        $range = 'Overview!A:C';
+        $range = 'Info!A:C';
 
         try {
             $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $range);
@@ -68,6 +68,7 @@ class SheetsController extends Controller
         $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
+
         $infoRange = 'Info!A:Z';
 
         try{
@@ -139,6 +140,7 @@ class SheetsController extends Controller
         $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
+
         $range = "Info!A:Z";
 
         try {
