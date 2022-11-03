@@ -16,7 +16,7 @@
             <p class="card-text"><small class="text-muted">Last Updated: {{ $result['Timestamp'] }}</small></p>
             <hr>
             @foreach(array_slice($result, 6) as $key => $info)
-                @if($info != 'No' && $key != "Row Number" && $info != NULL)
+                @if($info != 'No' && $key != "Row Number" && $info != NULL && $info != "NA")
                 <p class="card-text text-start"><strong>{{ $key }}:</strong> {{ $info }}</p>
                 @endif
             @endforeach
