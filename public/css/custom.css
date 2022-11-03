@@ -121,6 +121,27 @@ h1 {
     }
     .card-width {
         width: 50%;
+
+    }
+}
+@media (min-width: 415px) and (max-width: 768px) {
+    .results {
+        object-fit: cover; 
+        height: 200px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 75%;
+    }
+}
+@media (min-width: 769px) {
+    .results {
+        object-fit: cover; 
+        height: 250px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 50%;
     }
 }
 
