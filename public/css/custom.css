@@ -24,6 +24,13 @@ h1 {
     color: #576F72;
 }
 
+.telephone:link {
+    color: #7D9D9C;
+}
+
+.telephone:visited {
+    color: #576F72;
+}
 
 .btn-secondary {
     background-color: #F0EBE3;
@@ -95,7 +102,6 @@ h1 {
     border-top: 2px solid #576F72;
 }
 
-
 @media (max-width: 414px) {
     .results {
         object-fit: cover; 
@@ -104,6 +110,27 @@ h1 {
     }
     .card-width {
         width: 100%;
+    }
+}
+@media (min-width: 415px) and (max-width: 768px) {
+    .results {
+        object-fit: cover; 
+        height: 200px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 75%;
+    }
+}
+@media (min-width: 769px) {
+    .results {
+        object-fit: cover; 
+        height: 250px; 
+        object-position: 15% 100%;
+    }
+    .card-width {
+        width: 50%;
+
     }
 }
 @media (min-width: 415px) and (max-width: 768px) {
@@ -133,7 +160,11 @@ h1 {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-
+.card {
+    background-color: #F0EBE3;
+    color: #576F72;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 @media (max-width: 414px) {
     .top-image {
