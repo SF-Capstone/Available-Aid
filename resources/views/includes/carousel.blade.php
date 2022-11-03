@@ -19,7 +19,7 @@
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
   
-  <!-- Slideshow of Available Aid Providers & Shelter Organizations -->
+  <!-- Slideshow of Portland Aid Guide Providers & Shelter Organizations -->
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="images/home1.jpg" alt="home1" width="402" height="338">

@@ -1,6 +1,6 @@
 <!--
-    Available Aid, SF '22
-    mapView.blade.php - Contains implementation of the Mapbox.com API for displaying the Available Aid map & shelter locations.
+    Portland Aid Guide, SF '22
+    mapView.blade.php - Contains implementation of the Mapbox.com API for displaying the Portland Aid Guide map & shelter locations.
     See https://mapbox.com for more API details for further improvements & development.
 -->
 

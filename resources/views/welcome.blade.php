@@ -1,6 +1,6 @@
 <!--
     Portland Aid Guide, SF '22
-    welcome.blade.php - The Available Aid welcome page.
+    welcome.blade.php - The Portland Aid Guide welcome page.
     Uses Carousel & FontAwesome Kit (JavaScript)
 -->
 
