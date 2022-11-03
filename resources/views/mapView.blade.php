@@ -92,7 +92,6 @@
         let container = document.createElement('div')
         container.id = 'loadContainer';
         container.className = 'loaderContainer';
-
         let loader = document.createElement('img');
         loader.id = 'loading';
         loader.className = 'loader'
@@ -179,7 +178,6 @@
                 });
         });
     }
-
     // Convert coordinates to an address/place
     function getLocation(event) {
         return new Promise((resolve, reject) => {
@@ -203,7 +201,6 @@
                 });
         });
     }
-
     // Sets the destination to the desired shelter
     function setShelter() {
         getShelter()
@@ -216,7 +213,6 @@
                 console.error(error);
             });
     }
-
     // Gets shelter data from controller
     function getShelter() {
         const shelterInfo = JSON.parse('{!! json_encode($result) !!}');
@@ -225,7 +221,6 @@
         const address = shelterInfo['Location'];
         return addMarker(name, address);
     }
-
     // Places a marker on the map where the shelter is located
     function addMarker(name, address) {
         return new Promise((resolve, reject) => {
