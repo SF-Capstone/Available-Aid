@@ -79,7 +79,7 @@ const style = [{
   'source': 'directions',
   'paint': {
     'circle-radius': 6,
-    'circle-color': '#576F72'
+    'circle-color': '#EA4335'
   },
   'filter': [
     'all',
