@@ -27,6 +27,14 @@ h1 {
     color: #576F72;
 }
 
+.telephone:link {
+    color: #7D9D9C;
+}
+
+.telephone:visited {
+    color: #576F72;
+}
+
 .btn-secondary {
     background-color: #F0EBE3;
     color: #576F72;
@@ -146,6 +154,12 @@ h1 {
     .card-width {
         width: 50%;
     }
+}
+
+.card {
+    background-color: #F0EBE3;
+    color: #576F72;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .card {
