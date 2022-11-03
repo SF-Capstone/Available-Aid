@@ -12,7 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         
-
         <title>Portland Aid Guide</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('image/logo4.png') }}">
 
@@ -53,7 +52,6 @@
             crossorigin="anonymous" 
             referrerpolicy="no-referrer" 
         />
-
     </head>
 
     <body style="background-color: rgb(228, 220, 207)">
