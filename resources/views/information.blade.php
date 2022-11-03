@@ -2,14 +2,10 @@
 @section('body')
 
 
-
 {{-- shelter information --}}
 
-<div class="container d-flex bootstrap-grid mb-2 mt-2 mx-auto">
-
+<div class="container d-flex bootstrap-grid mb-2 mt-2 text-center mx-auto">
     <div class="card mb-3 col-lg-12 col-md-12 col-sm-12 mx-auto card-width">
-
-
         <img src="{{ route('getImage', ['imageName' => $result['Shelter Name']]) }}" class="card-img-top results" alt="Shelter Image">
 
         <div class="card-body">
