@@ -8,6 +8,9 @@ Our colors:
 h1 {
     color: #576F72;
 }
+.noResults {
+    color: #576F72;
+}
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: #F0EBE3;
