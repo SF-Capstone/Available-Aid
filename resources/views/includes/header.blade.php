@@ -1,5 +1,5 @@
 <!--
-    Available Aid, SF '22
+    Portland Aid Guide, SF '22
     header.blade.php - Contains important front-end resources.
     Uses Google Fonts, normalize.css v8.0.1. (MIT License | github.com/necolas/normalize.css),
     Bootstrap (CSS & JS), Axios, jQuery, Popper.js, and FontAwesome Kit (JavaScript).
@@ -13,7 +13,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         
 
-        <title>Available Aid</title>
+        <title>Portland Aid Guide</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('image/logo4.png') }}">
 
         <!-- Fonts -->

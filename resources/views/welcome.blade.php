@@ -1,5 +1,5 @@
 <!--
-    Available Aid, SF '22
+    Portland Aid Guide, SF '22
     welcome.blade.php - The Available Aid welcome page.
     Uses Carousel & FontAwesome Kit (JavaScript)
 -->
@@ -13,9 +13,9 @@
 <div class="top-image"></div>
 <div class="container">
 <div class="card my-3 mx-auto p-4 card-width">
-    <h1 class="text-center">Available Aid</h1>
+    <h1 class="text-center">Portland Aid Guide</h1>
     <hr style="margin-top: -0.2em;">
-    <p class="fs-5">Available Aid serves anyone who is trying to find safe shelter in Portland. 
+    <p class="fs-5">Portland Aid Guide serves anyone who is trying to find safe shelter in Portland. 
                     Here, you can find a place to stay that will meet your needs.</p>
     <button type="button" class="col-5 btn btn-lg mx-auto btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
 </div>
