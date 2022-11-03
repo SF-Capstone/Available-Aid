@@ -9,185 +9,169 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
-<style>
-    body,
-    html {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .loaderContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-top: 16px solid #576f72;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-    }
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    .mapbox-directions-destination {
-        display: none;
-    }
-    .directions-icon-reverse {
-        display: none;
-    }
-    .mapbox-directions-instructions,
-    .mapbox-directions-instructions-wrapper {
-        height: calc(100% - 38px);
-    }
-    .mapboxgl-popup {
-        max-width: 200px;
-    }
-    .mapboxgl-popup-content {
-        text-align: center;
-        font-family: 'Open Sans', sans-serif;
-    }
-    .mapboxgl-user-location,
-    .mapboxgl-user-location-accuracy-circle {
-        display: none;
-    }
-    .mapboxgl-ctrl button:not(:disabled):hover {
-        background-color: #fff;
-    }
-    /* Mapbox screen size "medium" and below */
-    @media only screen and (max-width: 799px) {
-        /* Full screen map */
-        #map {
-            height: 100%;
-        }
-        .directions-control.directions-control-inputs {
-            min-width: 300px;
-        }
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 0;
-            position: absolute;
-        }
-        .directions-control.directions-control-instructions {
-            max-width: none;
-            min-width: 0%;
-            width: auto;
-            position: absolute;
-            bottom: 0;
-            pointer-events: auto;
-        }
-        .directions-control.directions-control-directions {
-            margin: 0;
-            -webkit-transition: max-height 0.3s ease-out;
-            -moz-transition: max-height 0.3s ease-out;
-            -o-transition: max-height 0.3s ease-out;
-            -ms-transition: max-height 0.3s ease-out;
-            transition: max-height 0.3s ease-out;
-            position: relative;
-        }
-        .directions-control.directions-control-directions.collapsed {
-            max-height: 38px !important;
-        }
-        .dirToggle {
-            position: absolute;
-            top: 0.5rem;
-            left: 50%;
-            transform: translate(-50%, 0);
-            z-index: 3;
-        }
-        .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl.shiftup {
-            margin: 0 0 48px 10px;
-        }
-        .mapboxgl-ctrl.mapboxgl-ctrl-attrib.shiftup {
-            margin: 0 10px 48px 0;
-        }
-    }
-    /* Mapbox screen size "large" and up */
-    @media only screen and (min-width: 800px) {
-        /* Center map on page */
-        #map {
-            margin: auto;
-            height: 75vh;
-            width: 75vw;
-        }
-        .mapboxgl-ctrl-top-left {
-            z-index: 99;
-        }
-        .mapboxgl-ctrl-bottom-left {
-            position: absolute;
-            top: 0;
-            height: 100%;
-        }
-        .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
-            bottom: 0;
-            position: absolute;
-        }
-        .directions-control.directions-control-instructions {
-            top: 0;
-            margin-top: 97px;
-            margin-left: 10px;
-            pointer-events: auto;
-        }
-        .dirToggle {
-            display: none;
-        }
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('/css/mapbox.css') }}">
 
 @section('body')
 <div id="map"></div>
 
 <script src="{{asset('js/mapbox/display.js')}}"></script>
 <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 <script>
     const mapboxClient = mapboxSdk({
         accessToken: mapboxgl.accessToken
     });
+
     $(document).ready(() => {
+        addGeocoder();
         addLoader();
-        setLocation();
+        defaultWalking();
+        shiftLocationButton();
+        setLocationButton();
         setShelter();
-        observeDirections();
+        watchOrigin();
     });
+
+    // Add a geocoder control to the map
+    // to function as the search box
+    function addGeocoder() {
+        let geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            countries: 'us',
+            bbox: [-124.566244, 41.991794, -116.463504, 46.292035],
+            filter: function(item) {
+                return item.context.some((i) => {
+                    return (
+                        i.id.split('.').shift() === 'region' &&
+                        i.text === 'Oregon'
+                    );
+                });
+            },
+            mapboxgl: mapboxgl
+        });
+        map.addControl(geocoder, 'top-left');
+
+        setLocationSearch(geocoder);
+        clearLocation();
+    }
+
+    // When search box gets a value, set the origin to it
+    function setLocationSearch(geocoder) {
+        let searchText = document.querySelector('.mapboxgl-ctrl-geocoder--input');
+        searchText.placeholder = 'Choose a starting place';
+        searchText.ariaLabel = 'Choose a starting place';
+
+        geocoder.on('result', function() {
+            directions.setOrigin(searchText.value);
+            let markers = document.querySelectorAll('.mapboxgl-marker');
+            markers.forEach((marker, index) => {
+                if (index != 0) {
+                    marker.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // When 'X' button is clicked, clear the origin
+    function clearLocation() {
+        let clearSearchButton = document.querySelector('.mapboxgl-ctrl-geocoder--button');
+        clearSearchButton.addEventListener("click", function() {
+            const destination = directions.getDestination().geometry.coordinates;
+            directions.removeRoutes();
+            directions.setDestination(destination);
+
+            let mapboxLogoCtrl = document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl");
+            mapboxLogoCtrl.style.visibility = 'visible';
+            mapboxLogoCtrl.classList.remove('shiftup');
+        });
+    }
+
     // Add a loading spinner
     function addLoader() {
         let container = document.createElement('div')
         container.id = 'loadContainer';
         container.className = 'loaderContainer';
+
         let loader = document.createElement('img');
         loader.id = 'loading';
         loader.className = 'loader'
         container.appendChild(loader)
-        let map = document.getElementById('map');
-        map.appendChild(container);
-        container.style.maxHeight = container.style.height = map.offsetHeight;
-        container.style.maxWidth = container.style.width = map.offsetWidth;
-        map.style.visibility = 'hidden';
+
+        let mapDiv = document.getElementById('map');
+        mapDiv.appendChild(container);
+
+        container.style.maxHeight = container.style.height = mapDiv.offsetHeight;
+        container.style.maxWidth = container.style.width = mapDiv.offsetWidth;
+        mapDiv.style.visibility = 'hidden';
         container.style.visibility = 'visible';
-        isLoaded(container);
+        isLoaded(container, mapDiv);
     }
+
     // Display map if data is loaded
-    function isLoaded(container) {
-        let mapElement = document.getElementById('map');
+    function isLoaded(container, mapDiv) {
         map.on('sourcedata', (e) => {
             if (e.sourceId === 'directions' && e.isSourceLoaded) {
                 container.style.visibility = 'hidden';
-                mapElement.style.visibility = 'visible';
+                mapDiv.style.visibility = 'visible';
             }
         });
     }
-    // Sets the user's origin to their geolocated position
-    function setLocation() {
+
+    // Make the map default to the walking profile
+    function defaultWalking() {
+        let walking = document.getElementById('mapbox-directions-profile-walking');
+        walking.click();
+    }
+
+    // Move location button to the top left/top right control 
+    // depending on window size
+    function shiftLocationButton() {
+        const resizeObserver = new ResizeObserver((entries) => {
+            if ($(window).width() <= 400) {
+                moveLocationButtonTopRight();
+            } else {
+                moveLocationButtonTopLeft();
+            }
+        });
+        let mapDiv = document.getElementById('map');
+        resizeObserver.observe(mapDiv);
+    }
+
+    // Move the location button from the top left to the top right
+    function moveLocationButtonTopRight() {
+        let locationButton = document.querySelector('.mapboxgl-ctrl-top-left').querySelector('.mapboxgl-ctrl-group');
+        if (locationButton) {
+            locationButton.remove();
+            let topRightCtrl = document.querySelector(".mapboxgl-ctrl-top-right");
+            topRightCtrl.appendChild(locationButton);
+        }
+    }
+
+    // Move the location button from the top right to the top left
+    function moveLocationButtonTopLeft() {
+        let locationButton = document.querySelector('.mapboxgl-ctrl-top-right').querySelectorAll('.mapboxgl-ctrl-group')[1];
+        if (locationButton) {
+            locationButton.remove();
+            let topLeftCtrl = document.querySelector(".mapboxgl-ctrl-top-left");
+            topLeftCtrl.appendChild(locationButton);
+        }
+    }
+
+    // When location button is clicked 
+    // sets the user's origin to their geolocated position
+    function setLocationButton() {
         geolocate.on('geolocate', function(event) {
             getLocation(event)
                 .then(location => {
+                    // Update search box
+                    let searchText = document.querySelector('.mapboxgl-ctrl-geocoder--input');
+                    searchText.value = location;
+
+                    // Show clear 'X' button
+                    let clearSearchButton = document.querySelector('.mapboxgl-ctrl-geocoder--button');
+                    clearSearchButton.style.display = 'block';
+
                     directions.setOrigin(location);
                 })
                 .catch(error => {
@@ -195,6 +179,7 @@
                 });
         });
     }
+
     // Convert coordinates to an address/place
     function getLocation(event) {
         return new Promise((resolve, reject) => {
@@ -218,6 +203,7 @@
                 });
         });
     }
+
     // Sets the destination to the desired shelter
     function setShelter() {
         getShelter()
@@ -230,6 +216,7 @@
                 console.error(error);
             });
     }
+
     // Gets shelter data from controller
     function getShelter() {
         const shelterInfo = JSON.parse('{!! json_encode($result) !!}');
@@ -238,6 +225,7 @@
         const address = shelterInfo['Location'];
         return addMarker(name, address);
     }
+
     // Places a marker on the map where the shelter is located
     function addMarker(name, address) {
         return new Promise((resolve, reject) => {
@@ -273,43 +261,36 @@
                 });
         });
     }
-    // Only runs "map directions" related functions once it has been added to DOM
-    function observeDirections() {
-        const targetNode = document.querySelector(".directions-control-instructions");
-        // Call observer if target node had children added/removed
-        const config = {
-            childList: true,
-        };
-        const callback = (mutationList, observer) => {
+
+    // Only runs "map directions" related functions once origin has been set
+    function watchOrigin() {
+        directions.on('origin', function() {
             responsiveDirections();
-        };
-        const observer = new MutationObserver(callback);
-        observer.observe(targetNode, config);
+        });
     }
-    // Wrapper for responsive directions functions
+
+    // Calls functions that make the map directions responsive
     function responsiveDirections() {
         let directionWindow = document.querySelector(".directions-control-directions");
-        let mapboxControls = {
-            // navigationCtrl: document.querySelector(".mapboxgl-ctrl-group"),
-            mapboxLogoCtrl: document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl"),
-            attributeCtrl: document.querySelector(".mapboxgl-ctrl.mapboxgl-ctrl-attrib"),
-            popupCtrl: document.querySelector(".mapboxgl-popup")
-        };
+        // let popupCtrl =document.querySelector(".mapboxgl-popup");
+
         // If map directions are currently being displayed
         if (directionWindow) {
             moveDirectionWindow();
-            mapboxControls.mapboxLogoCtrl.classList.add('shiftup');
-            mapboxControls.attributeCtrl.classList.add('shiftup');
+
             directionWindow.classList.add('collapsed');
-            addDirectionToggle(directionWindow, mapboxControls);
-            toggleDirections(directionWindow, mapboxControls);
-            resizeDirections(directionWindow, mapboxControls);
+            directionWindow.classList.toggle('collapsed');
+
+            let mapboxLogoCtrl = document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl");
+            mapboxLogoCtrl.classList.add('shiftup');
+
+            addDirectionToggle(directionWindow);
+            styleCollapsed();
+            resizeDirections(directionWindow, mapboxLogoCtrl);
             $(window).trigger('resize');
-        } else {
-            mapboxControls.mapboxLogoCtrl.classList.remove('shiftup')
-            mapboxControls.attributeCtrl.classList.remove('shiftup');
         }
     }
+
     // Separate direction inputs and direction instructions 
     // from each other for easier CSS formatting
     function moveDirectionWindow() {
@@ -318,58 +299,77 @@
         let botLeftCtrl = document.querySelector(".mapboxgl-ctrl-bottom-left");
         botLeftCtrl.appendChild(instructions);
     }
+
     // Adds a button that collapses directions when clicked
-    function addDirectionToggle(directionWindow, mapboxControls) {
+    function addDirectionToggle(directionWindow) {
         let directionToggle = document.createElement('button');
         directionToggle.id = 'directionToggle';
-        directionToggle.className = 'dirToggle';
-        directionToggle.textContent = 'Toggle directions';
+        directionToggle.className = 'dirToggle btn btn-sm btn-secondary';
+        directionToggle.textContent = 'Hide';
+
         const directionToggleExists = document.getElementById("directionToggle");
         if (!directionToggleExists) {
             directionWindow.appendChild(directionToggle);
         }
+
+        toggleDirections(directionToggle);
+    }
+
+    // Show or collapse directions when clicked
+    function toggleDirections(directionToggle) {
         directionToggle.addEventListener('click', function() {
-            toggleDirections(directionWindow, mapboxControls);
+            let directionWindow = document.querySelector(".directions-control-directions");
+            directionWindow.classList.toggle('collapsed');
+            styleCollapsed();
         })
     }
-    // Toggles direction window and other map controls on/off
-    function toggleDirections(directionWindow, mapboxControls) {
-        directionWindow.classList.toggle('collapsed');
-        if (mapboxControls.popupCtrl) mapboxControls.popupCtrl.style.display = "none";
-        if (directionWindow.classList.contains('collapsed')) {
-            directionWindow.addEventListener("transitionend", function visible() {
-                directionWindow.removeEventListener("transitionend", visible);
-                mapboxControls.mapboxLogoCtrl.style.visibility = "visible";
-                mapboxControls.attributeCtrl.style.visibility = "visible";
-            });
+
+    // Check if direction window is collapsed 
+    // and style map elements accordingly
+    function styleCollapsed() {
+        let directionToggle = document.querySelector('.dirToggle');
+        let directionWindow = document.querySelector(".directions-control-directions");
+        let popupCtrl = document.querySelector(".mapboxgl-popup");
+        let mapboxLogoCtrl = document.querySelector(".mapboxgl-ctrl-bottom-left").querySelector(".mapboxgl-ctrl");
+
+        if (directionWindow) {
+            if (directionWindow.classList.contains('collapsed')) {
+                if (popupCtrl) popupCtrl.style.setProperty("visibility", "visible", "important");
+                directionToggle.textContent = 'Show directions';
+                directionWindow.addEventListener("transitionend", function visible() {
+                    directionWindow.removeEventListener("transitionend", visible);
+                    mapboxLogoCtrl.style.visibility = "visible";
+                });
+            } else {
+                directionToggle.textContent = 'Hide';
+                mapboxLogoCtrl.style.visibility = "hidden";
+                if (popupCtrl) popupCtrl.style.setProperty("visibility", "hidden", "important");
+                console.log(popupCtrl);
+            }
         } else {
-            mapboxControls.mapboxLogoCtrl.style.visibility = "hidden";
-            mapboxControls.attributeCtrl.style.visibility = "hidden";
+            mapboxLogoCtrl.classList.remove('shiftup');
         }
     }
-    // Every time window is resized, resizes directions
-    function resizeDirections(directionWindow, mapboxControls) {
-        let map = document.getElementById('map');
+
+    // Every time window is resized, resize directions to fit
+    function resizeDirections(directionWindow, mapboxLogoCtrl) {
         // Works on both window resize and navbar collapse
         const resizeObserver = new ResizeObserver((entries) => {
             if ($(window).width() <= 799) {
-                mapboxControls.mapboxLogoCtrl.classList.add('shiftup');
-                mapboxControls.attributeCtrl.classList.add('shiftup');
-                directionWindow.classList.toggle('collapsed');
-                directionWindow.style.maxWidth = directionWindow.style.width = map.offsetWidth;
-                directionWindow.style.maxHeight = directionWindow.style.height = (map.offsetHeight / 2);
-                toggleDirections(directionWindow, mapboxControls);
+                mapboxLogoCtrl.classList.add('shiftup');
+                directionWindow.style.maxWidth = directionWindow.style.width = mapDiv.offsetWidth;
+                directionWindow.style.maxHeight = directionWindow.style.height = (mapDiv.offsetHeight / 2);
+                styleCollapsed();
             } else {
-                mapboxControls.mapboxLogoCtrl.classList.remove('shiftup');
-                mapboxControls.attributeCtrl.classList.remove('shiftup');
+                mapboxLogoCtrl.classList.remove('shiftup');
                 directionWindow.classList.remove('collapsed');
                 directionWindow.style.maxWidth = directionWindow.style.width = "300px";
                 directionWindow.style.maxHeight = directionWindow.style.height = "45vh";
-                mapboxControls.attributeCtrl.style.visibility = 'visible';
-                mapboxControls.mapboxLogoCtrl.style.visibility = 'visible';
+                mapboxLogoCtrl.style.visibility = 'visible';
             }
         });
-        resizeObserver.observe(map);
+        let mapDiv = document.getElementById('map');
+        resizeObserver.observe(mapDiv);
     }
 </script>
 @endsection
