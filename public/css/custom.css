@@ -171,7 +171,7 @@ h1 {
 
 @media (max-width: 414px) {
     .top-image {
-        background: url("../images/top-main.jpg") no-repeat center; 
+        background: url("../images/top-main.webp") no-repeat center; 
         background-size: cover;
         background-position: bottom;
         height: 250px;
@@ -180,7 +180,7 @@ h1 {
 }
 @media (min-width: 415px) and (max-width: 768px) {
     .top-image {
-        background: url("../images/top-main.jpg") no-repeat center; 
+        background: url("../images/top-main.webp") no-repeat center; 
         background-size: cover;
         background-position: center;
         height: 300px;
@@ -189,7 +189,7 @@ h1 {
 }
 @media (min-width: 769px) {
     .top-image {
-        background: url("../images/top-main.jpg") no-repeat center; 
+        background: url("../images/top-main.webp") no-repeat center; 
         background-size: cover;
         background-position: center;
         height: 320px;
