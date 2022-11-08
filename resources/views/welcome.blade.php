@@ -18,11 +18,4 @@
 </div>
 <br>
 
-
-{{--@include('includes.carousel')--}}
-{{--
-<h1 class="text-center"> Need Help?</h1>
-<button class="btn">Contact us <i class='fas fa-phone'></i></button>
---}}
-
 @endsection
