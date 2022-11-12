@@ -22,6 +22,7 @@
         addLoader();
         defaultWalking();
         shiftLocationButton();
+        enlargeMapCanvas();
         setLocationButton();
         setShelter();
         watchOrigin();
@@ -150,6 +151,17 @@
             let topLeftCtrl = document.querySelector(".mapboxgl-ctrl-top-left");
             topLeftCtrl.appendChild(locationButton);
         }
+    }
+
+    // Increase map canvas height to ensure
+    // the top doesn't get cut off
+    function enlargeMapCanvas() {
+        const resizeObserver = new ResizeObserver((entries) => {
+            let mapboxCanvas = document.querySelector(".mapboxgl-canvas");
+            mapboxCanvas.style.height = (mapboxCanvas.offsetHeight + 38) + 'px';
+        });
+        let mapDiv = document.getElementById('map');
+        resizeObserver.observe(mapDiv);
     }
 
     // When location button is clicked 
@@ -312,8 +324,11 @@
     // Show or collapse directions when clicked
     function toggleDirections(directionToggle) {
         directionToggle.addEventListener('click', function() {
+            directionToggle.blur();
+
             let directionWindow = document.querySelector(".directions-control-directions");
             directionWindow.classList.toggle('collapsed');
+
             styleCollapsed();
         })
     }
@@ -338,7 +353,6 @@
                 directionToggle.textContent = 'Hide';
                 mapboxLogoCtrl.style.visibility = "hidden";
                 if (popupCtrl) popupCtrl.style.setProperty("visibility", "hidden", "important");
-                console.log(popupCtrl);
             }
         } else {
             mapboxLogoCtrl.classList.remove('shiftup');
