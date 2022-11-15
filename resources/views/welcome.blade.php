@@ -18,27 +18,4 @@
 </div>
 <br>
 
-
-{{--@include('includes.carousel')--}}
-{{--
-<h1 class="text-center"> Need Help?</h1>
-<button class="btn">Contact us <i class='fas fa-phone'></i></button>
---}}
-
-<script>
-    $(document).ready(() => {
-        getLocationData();
-    });
-    //using the geolocation api to get the user's location
-    function getLocationData() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position.coords.longitude, position.coords.latitude);
-            });
-        } else {
-            console.log("Geolocation is not supported by this browser.");
-        }
-    }
-</script>
-
 @endsection
