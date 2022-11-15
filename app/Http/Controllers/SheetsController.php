@@ -40,7 +40,8 @@ class SheetsController extends Controller
         $client->setAuthConfig(storage_path('app/serviceCredentials.json'));
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
-        $range = 'Info!A:C';
+
+        $range = 'Overview!A:C';
 
         try {
             $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $range);

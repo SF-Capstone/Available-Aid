@@ -37,6 +37,10 @@ svg[viewbox="0 0 27 41"] > path {
     }
 }
 
+.mapboxgl-canvas {
+    margin-top: -38px;
+}
+
 .mapbox-directions-component-keyline {
     box-shadow: 0 0 10px 2px rgb(0 0 0 / 10%);
 }
