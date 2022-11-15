@@ -15,15 +15,6 @@ use App\Http\Controllers\SheetsController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::controller(WelcomeController::class)->group(function(){
-    Route::get('/', 'show')->name('welcome');
-});
-*/
-
 Route::controller(WelcomeController::class)->group(function(){
     Route::get('/images/{imageName?}', 'getImage')->name('getImage');
 });
