@@ -28,6 +28,7 @@
         addLoader();
         defaultWalking();
         shiftLocationButton();
+        enlargeMapCanvas();
         setLocationButton();
         setShelter();
         watchOrigin();
@@ -92,6 +93,7 @@
         let container = document.createElement('div')
         container.id = 'loadContainer';
         container.className = 'loaderContainer';
+
         let loader = document.createElement('img');
         loader.id = 'loading';
         loader.className = 'loader'
@@ -157,6 +159,17 @@
         }
     }
 
+    // Increase map canvas height to ensure
+    // the top doesn't get cut off
+    function enlargeMapCanvas() {
+        const resizeObserver = new ResizeObserver((entries) => {
+            let mapboxCanvas = document.querySelector(".mapboxgl-canvas");
+            mapboxCanvas.style.height = (mapboxCanvas.offsetHeight + 38) + 'px';
+        });
+        let mapDiv = document.getElementById('map');
+        resizeObserver.observe(mapDiv);
+    }
+
     // When location button is clicked 
     // sets the user's origin to their geolocated position
     function setLocationButton() {
@@ -178,6 +191,7 @@
                 });
         });
     }
+
     // Convert coordinates to an address/place
     function getLocation(event) {
         return new Promise((resolve, reject) => {
@@ -201,6 +215,7 @@
                 });
         });
     }
+
     // Sets the destination to the desired shelter
     function setShelter() {
         getShelter()
@@ -213,6 +228,7 @@
                 console.error(error);
             });
     }
+
     // Gets shelter data from controller
     function getShelter() {
         const shelterInfo = JSON.parse('{!! json_encode($result) !!}');
@@ -221,6 +237,7 @@
         const address = shelterInfo['Location'];
         return addMarker(name, address);
     }
+
     // Places a marker on the map where the shelter is located
     function addMarker(name, address) {
         return new Promise((resolve, reject) => {
@@ -313,8 +330,11 @@
     // Show or collapse directions when clicked
     function toggleDirections(directionToggle) {
         directionToggle.addEventListener('click', function() {
+            directionToggle.blur();
+
             let directionWindow = document.querySelector(".directions-control-directions");
             directionWindow.classList.toggle('collapsed');
+
             styleCollapsed();
         })
     }
@@ -339,7 +359,6 @@
                 directionToggle.textContent = 'Hide';
                 mapboxLogoCtrl.style.visibility = "hidden";
                 if (popupCtrl) popupCtrl.style.setProperty("visibility", "hidden", "important");
-                console.log(popupCtrl);
             }
         } else {
             mapboxLogoCtrl.classList.remove('shiftup');
