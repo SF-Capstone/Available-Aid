@@ -1,10 +1,12 @@
+
 /*
-Our colors:
+Portland Aid Guide's color-palate:
 #F0EBE3 Tan
 #E4DCCF Dark Tan
 #7D9D9C Light Green
 #576F72 Dark Green
 */
+
 h1 {
     color: #576F72;
 }
@@ -66,7 +68,6 @@ h1 {
     --bs-btn-active-color: #F0EBE3;
     --bs-btn-active-bg: #576F72;
 }
-
 
 .form-check-input {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
