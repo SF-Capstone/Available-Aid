@@ -6,6 +6,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
+<<<<<<< HEAD
 
 <style>
 .gap{
@@ -112,3 +113,26 @@ h2{
 
 @endsection
 <div class='gap'></div>
+=======
+<div class="top-image"></div>
+<div class="container">
+<div class="card my-3 mx-auto p-4 card-width">
+    <h1 class="text-center">Available Aid</h1>
+    <hr style="margin-top: -0.2em;">
+    <p class="fs-5">Available Aid serves anyone who is trying to find safe shelter in Portland. 
+                    Here, you can find a place to stay that will meet your needs.</p>
+    <button type="button" class="col-5 btn btn-lg mx-auto btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCenter"> Search</button> 
+</div>
+</div>
+<br>
+
+
+{{--@include('includes.carousel')--}}
+{{--
+<h1 class="text-center"> Need Help?</h1>
+<button class="btn">Contact us <i class='fas fa-phone'></i></button>
+--}}
+
+
+@endsection
+>>>>>>> ace942775e5443771e3fc9d362ee04fd45a4fbb5

@@ -3,19 +3,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
+<<<<<<< HEAD
 .gap{
   width:200px;
   background:none;
   height:50px;
   display:inline-block;
 }
+=======
+
+>>>>>>> ace942775e5443771e3fc9d362ee04fd45a4fbb5
   .carousel-inner img {
     width: 100%;
     height: 100%;
   }
 </style>
 
+<<<<<<< HEAD
 <div class='gap'></div>
+=======
+>>>>>>> ace942775e5443771e3fc9d362ee04fd45a4fbb5
 <h1 style="font-size:30px,">Available Shelter</h1>
 <div id="demo" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
