@@ -17,7 +17,7 @@
             <p class="card-text">{{ $result['Location'] }}</p>
             <a class="card-text" href="tel:{{ $result['Contact Info'] }}"> {{ $result['Contact Info'] }}</a>
             <h5 class="card-text">Avalible Beds: {{ $result['Beds'] }}</h5>
-</div>
+            </div>
             <hr/>
             <p class="card-text"><small class="text-muted">Last Updated: {{ $result['Timestamp'] }}</small></p>
             @foreach(array_slice($result, 6) as $key => $info)
