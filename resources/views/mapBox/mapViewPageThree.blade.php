@@ -3,7 +3,6 @@
     // Calls functions that make the map directions responsive
     function responsiveDirections() {
         let directionWindow = document.querySelector(".directions-control-directions");
-        // let popupCtrl =document.querySelector(".mapboxgl-popup");
 
         // If map directions are currently being displayed
         if (directionWindow) {
@@ -49,8 +48,6 @@
     // Show or collapse directions when clicked
     function toggleDirections(directionToggle) {
         directionToggle.addEventListener('click', function() {
-            directionToggle.blur();
-
             let directionWindow = document.querySelector(".directions-control-directions");
             directionWindow.classList.toggle('collapsed');
 
