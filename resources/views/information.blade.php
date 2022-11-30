@@ -26,7 +26,7 @@
             @endif
             @endforeach
             <div class="text-center">
-            <a class="btn btn-primary text-center" href="{{ route('mapView', ['shelterRow' => $result['Row Number'], 'shelterName' => Str::slug($result['Shelter Name'], '-') ]) }}">Get Directions</a>
+            <a class="btn btn-primary text-center" href="{{ route('map', ['shelterRow' => $result['Row Number'], 'shelterName' => Str::slug($result['Shelter Name'], '-') ]) }}">Get Directions</a>
             </div>
         </div>
     </div>
