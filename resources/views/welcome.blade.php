@@ -1,6 +1,10 @@
+<!--
+    Portland Aid Guide, SF '22
+    welcome.blade.php - The Portland Aid Guide welcome page.
+    Uses Carousel & FontAwesome Kit (JavaScript)
+-->
+
 @extends('includes.header')
-
-
 @section('body')
 @include('includes.filterModal')
 <meta name='viewport' content='width=device-width, initial-scale=1'>

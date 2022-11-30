@@ -1,4 +1,8 @@
-
+<!--
+    Portland Aid Guide, SF '22
+    mapView.blade.php - Contains implementation of the Mapbox.com API for displaying the Portland Aid Guide map & shelter locations.
+    See https://mapbox.com for more API details for further improvements & development.
+-->
 
 @extends('includes.header')
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
