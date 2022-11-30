@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         
-        <title>Portland Aid Guide</title>
+
+        <title>Available Aid</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('image/logo4.png') }}">
 
         <!-- Fonts -->
@@ -45,14 +46,39 @@
             crossorigin="anonymous" 
             referrerpolicy="no-referrer" 
         />
+
     </head>
 
     <body style="background-color: rgb(228, 220, 207)">
-        <nav class="navbar sticky-top navbar-expand-sm navbar-custom" style="background-color: rgb(87, 111, 114); box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-            <div class="container" >
-                <a href="{{ route('getFilterInfo') }}" class="d-flex navbar-brand mx-auto card-width">
-                    <img src="{{ asset('images/PAG_logo1.svg') }}" alt="logo" style="height:50px;">
+        <nav class="navbar sticky-top navbar-expand-sm navbar-custom" style="background-color: rgb(87, 111, 114);">
+            <div class="container">
+                <a href="{{ route('getFilterInfo') }}" class="navbar-brand mb=0 h1">
+                    <img
+                        class="align-middle"
+                        src=""
+                        alt="Logo Icon" 
+                        width="40" 
+                    />
                 </a>
+                <button 
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('getFilterInfo') }}">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         @yield('body')
