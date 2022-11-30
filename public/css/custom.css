@@ -1,7 +1,11 @@
+/*
+Our colors:
+#F0EBE3 Tan
+#E4DCCF Dark Tan
+#7D9D9C Light Green
+#576F72 Dark Green
+*/
 h1 {
-    color: #576F72;
-}
-.noResults {
     color: #576F72;
 }
 .navbar-custom .navbar-brand,
@@ -20,13 +24,6 @@ h1 {
     color: #576F72;
 }
 
-.telephone:link {
-    color: #7D9D9C;
-}
-
-.telephone:visited {
-    color: #576F72;
-}
 
 .btn-secondary {
     background-color: #F0EBE3;
@@ -98,6 +95,7 @@ h1 {
     border-top: 2px solid #576F72;
 }
 
+
 @media (max-width: 414px) {
     .results {
         object-fit: cover; 
@@ -126,27 +124,6 @@ h1 {
     }
     .card-width {
         width: 50%;
-
-    }
-}
-@media (min-width: 415px) and (max-width: 768px) {
-    .results {
-        object-fit: cover; 
-        height: 200px; 
-        object-position: 15% 100%;
-    }
-    .card-width {
-        width: 75%;
-    }
-}
-@media (min-width: 769px) {
-    .results {
-        object-fit: cover; 
-        height: 250px; 
-        object-position: 15% 100%;
-    }
-    .card-width {
-        width: 50%;
     }
 }
 
@@ -156,15 +133,11 @@ h1 {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.card {
-    background-color: #F0EBE3;
-    color: #576F72;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
+
 
 @media (max-width: 414px) {
     .top-image {
-        background: url("../images/top-main.webp") no-repeat center; 
+        background: url("../images/top-main.jpg") no-repeat center; 
         background-size: cover;
         background-position: bottom;
         height: 250px;
@@ -173,7 +146,7 @@ h1 {
 }
 @media (min-width: 415px) and (max-width: 768px) {
     .top-image {
-        background: url("../images/top-main.webp") no-repeat center; 
+        background: url("../images/top-main.jpg") no-repeat center; 
         background-size: cover;
         background-position: center;
         height: 300px;
@@ -182,7 +155,7 @@ h1 {
 }
 @media (min-width: 769px) {
     .top-image {
-        background: url("../images/top-main.webp") no-repeat center; 
+        background: url("../images/top-main.jpg") no-repeat center; 
         background-size: cover;
         background-position: center;
         height: 320px;
