@@ -23,7 +23,6 @@
 
 
 <script>
-
     // When search box gets a value, set the origin to it
     function setLocationSearch(geocoder) {
         let searchText = document.querySelector('.mapboxgl-ctrl-geocoder--input');
@@ -55,7 +54,7 @@
         });
     }
 
-      // Display map if data is loaded
+    // Display map if data is loaded
     function isLoaded(container, mapDiv) {
         map.on('sourcedata', (e) => {
             if (e.sourceId === 'directions' && e.isSourceLoaded) {
@@ -110,7 +109,7 @@
         });
     }
 
- 
+
 
     // Gets shelter data from controller
     function getShelter() {
@@ -163,6 +162,5 @@
             responsiveDirections();
         });
     }
-
 </script>
 @endsection
