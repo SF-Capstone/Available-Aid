@@ -228,7 +228,10 @@ label[for=mapbox-directions-profile-driving-traffic] {
         transform: translate(-50%, 0);
         z-index: 3;
         width: 120px;
-    }
+        --bs-btn-hover-color: #576F72 !important;
+        --bs-btn-hover-bg: #F0EBE3 !important;
+        --bs-btn-hover-border-color: #7D9D9C !important;
+}
 
     .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl.shiftup {
         margin: 0 0 48px 10px;

@@ -41,7 +41,7 @@ class SheetsController extends Controller
         $client->addScope(Drive::DRIVE);
         $service = new Google_Service_Sheets($client);
 
-        $range = 'Overview!A:C';
+        $range = 'Info!A:C';
 
         try {
             $shelterResultInfo = $service->spreadsheets_values->get($spreadsheetId, $range);

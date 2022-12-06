@@ -3,7 +3,6 @@
     // Calls functions that make the map directions responsive
     function responsiveDirections() {
         let directionWindow = document.querySelector(".directions-control-directions");
-        // let popupCtrl =document.querySelector(".mapboxgl-popup");
 
         // If map directions are currently being displayed
         if (directionWindow) {
@@ -49,8 +48,6 @@
     // Show or collapse directions when clicked
     function toggleDirections(directionToggle) {
         directionToggle.addEventListener('click', function() {
-            directionToggle.blur();
-
             let directionWindow = document.querySelector(".directions-control-directions");
             directionWindow.classList.toggle('collapsed');
 
@@ -83,25 +80,3 @@
             mapboxLogoCtrl.classList.remove('shiftup');
         }
     }
-
-    // Every time window is resized, resize directions to fit
-    function resizeDirections(directionWindow, mapboxLogoCtrl) {
-        // Works on both window resize and navbar collapse
-        const resizeObserver = new ResizeObserver((entries) => {
-            if ($(window).width() <= 799) {
-                mapboxLogoCtrl.classList.add('shiftup');
-                directionWindow.style.maxWidth = directionWindow.style.width = mapDiv.offsetWidth;
-                directionWindow.style.maxHeight = directionWindow.style.height = (mapDiv.offsetHeight / 2);
-                styleCollapsed();
-            } else {
-                mapboxLogoCtrl.classList.remove('shiftup');
-                directionWindow.classList.remove('collapsed');
-                directionWindow.style.maxWidth = directionWindow.style.width = "300px";
-                directionWindow.style.maxHeight = directionWindow.style.height = "45vh";
-                mapboxLogoCtrl.style.visibility = 'visible';
-            }
-        });
-        let mapDiv = document.getElementById('map');
-        resizeObserver.observe(mapDiv);
-    }
-        </script>
